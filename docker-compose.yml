@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: clyvo_db
+    environment:
+      - ORACLE_PASSWORD=060205
+      - APP_USER=RM562795
+      - APP_USER_PASSWORD=060205
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      - ./db_setup.sql:/container-entrypoint-initdb.d/01_db_setup.sql
+      - ./db_dml.sql:/container-entrypoint-initdb.d/02_db_dml.sql
+    networks:
+      - clyvo_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: clyvo_api
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:oracle:thin:@db:1521:XE
+      - DB_USER=RM562795
+      - DB_PASSWORD=060205
+    networks:
+      - clyvo_network
+    restart: unless-stopped
+
+volumes:
+  oracle_data:
+    name: oracle_data_volume # Exigência DevOps 2.3: Volume nomeado
+
+networks:
+  clyvo_network:
+    driver: bridge

@@ -15,7 +15,7 @@ LOCATION="southcentralus"
 VM_NAME="vm-clyvo-app"
 IMAGE="Ubuntu2204"
 ADMIN_USER="azureuser"
-VM_SIZE="Standard_B2s_v2"
+VM_SIZE="Standard_D2as_v4"
 
 echo "========================================="
 echo "Iniciando Provisionamento na Azure..."
@@ -39,6 +39,7 @@ az vm create \
   --image $IMAGE \
   --admin-username $ADMIN_USER \
   --size $VM_SIZE \
+  --zone 1 \
   --generate-ssh-keys \
   --custom-data cloud-init.txt \
   --output json

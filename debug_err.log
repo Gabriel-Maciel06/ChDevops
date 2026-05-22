@@ -1,0 +1,795 @@
+DEBUG: cli.knack.cli: Command arguments: ['vm', 'create', '--resource-group', 'rg-clyvo-devops-southcentralus', '--name', 'vm-clyvo-app', '--image', 'Ubuntu2204', '--admin-username', 'azureuser', '--size', 'Standard_B2s_v2', '--generate-ssh-keys', '--debug']
+DEBUG: cli.knack.cli: __init__ debug log:
+Cannot enable color.
+DEBUG: cli.knack.cli: Event: Cli.PreExecute []
+DEBUG: cli.knack.cli: Event: CommandParser.OnGlobalArgumentsCreate [<function CLILogging.on_global_arguments at 0x1034927a0>, <function OutputProducer.on_global_arguments at 0x10366ae80>, <function CLIQuery.on_global_arguments at 0x103695300>]
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPreCommandTableCreate []
+DEBUG: cli.azure.cli.core: Using packaged command index for profile 'latest'.
+DEBUG: cli.azure.cli.core: Modules found from index for 'vm': ['azure.cli.command_modules.vm']
+DEBUG: cli.azure.cli.core: Loading command modules...
+DEBUG: cli.azure.cli.core: Loaded command modules in parallel:
+DEBUG: cli.azure.cli.core: Name                  Load Time    Groups  Commands
+DEBUG: cli.azure.cli.core: vm                        0.207        61       224
+DEBUG: cli.azure.cli.core: Total (1)                 0.210        61       224
+DEBUG: cli.azure.cli.core: Loaded 61 groups, 224 commands.
+DEBUG: cli.azure.cli.core: Found a match in the command table.
+DEBUG: cli.azure.cli.core: Raw command  : vm create
+DEBUG: cli.azure.cli.core: Command table: vm create
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPreCommandTableTruncate [<function AzCliLogging.init_command_file_logging at 0x103e405e0>]
+DEBUG: cli.azure.cli.core.azlogging: metadata file logging enabled - writing logs to '/Users/gabrieloliveira/.azure/commands/2026-05-22.20-16-42.vm_create.41741.log'.
+INFO: az_command_data_logger: command args: vm create --resource-group {} --name {} --image {} --admin-username {} --size {} --generate-ssh-keys --debug
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPreArgumentLoad [<function register_global_subscription_argument.<locals>.add_subscription_parameter at 0x103e7a700>]
+DEBUG: cli.azure.cli.core.profiles._shared: Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/profiles/_shared.py", line 437, in _get_attr
+    op = import_module(full_mod_path)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.13_1/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1310, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'azure.mgmt.compute.v2024_03_03'
+
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPostArgumentLoad []
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPostCommandTableCreate [<function register_ids_argument.<locals>.add_ids_arguments at 0x103e7ad40>, <function register_global_policy_argument.<locals>.add_global_policy_argument at 0x103e7ae80>, <function register_cache_arguments.<locals>.add_cache_arguments at 0x103e7af20>, <function register_upcoming_breaking_change_info.<locals>.update_breaking_change_info at 0x103e7afc0>]
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnCommandTableLoaded []
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPreParseArgs []
+DEBUG: cli.knack.cli: Event: CommandInvoker.OnPostParseArgs [<function OutputProducer.handle_output_argument at 0x10366af20>, <function CLIQuery.handle_query_parameter at 0x1036953a0>, <function register_ids_argument.<locals>.parse_ids_arguments at 0x103e7ade0>]
+WARNING: The default value of '--size' will be changed to 'Standard_D2s_v5' from 'Standard_DS1_v2' in a future release.
+DEBUG: cli.azure.cli.core.commands.client_factory: Getting management service client client_type=ResourceManagementClient
+DEBUG: cli.azure.cli.core.auth.persistence: build_persistence: location='/Users/gabrieloliveira/.azure/msal_token_cache.json', encrypt=False
+DEBUG: cli.azure.cli.core.auth.binary_cache: load: /Users/gabrieloliveira/.azure/msal_http_cache.bin
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token_info: scopes=('https://management.core.windows.net//.default',), options={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: 675faa20-cf0d-4b66-aa33-2fe1521d2e4c
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourcegroups/rg-clyvo-devops-southcentralus?api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourcegroups/rg-clyvo-devops-southcentralus?api-version=2024-11-01 HTTP/1.1" 200 265
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '265'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': 'bfa088af-1ff5-45bf-a724-6bc80af16958'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': 'bfa088af-1ff5-45bf-a724-6bc80af16958'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'SOUTHCENTRALUS:20260522T231642Z:bfa088af-1ff5-45bf-a724-6bc80af16958'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: EA2B4685CCCF4FB996A67AAD129CA9D3 Ref B: CPQ261090215031 Ref C: 2026-05-22T23:16:42Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:42 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: {"id":"/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus","name":"rg-clyvo-devops-southcentralus","type":"Microsoft.Resources/resourceGroups","location":"southcentralus","properties":{"provisioningState":"Succeeded"}}
+DEBUG: cli.azure.cli.core.commands.validators: using location 'southcentralus' from resource group 'rg-clyvo-devops-southcentralus'
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): azcliprod.blob.core.windows.net:443
+DEBUG: urllib3.connectionpool: https://azcliprod.blob.core.windows.net:443 "GET /cli/vm/aliases.json HTTP/1.1" 200 4460
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: e691325f-e238-40d2-b6a0-3057fc797ddd
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions?$expand=properties&$orderby=name%20desc&$top=1&api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions?$expand=properties&$orderby=name%20desc&$top=1&api-version=2024-11-01 HTTP/1.1" 200 555
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '555'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-resource': 'Microsoft.Compute/ListVMImagesVersionsFromLocation3Min;15993,Microsoft.Compute/ListVMImagesVersionsFromLocation30Min;43993'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-served-by': 'dd45aa3d-cf58-4be4-bf58-b27a0e753f46_134181500076955626'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': '6c20c7c1-caec-48b1-b926-5eeedd1f3abb'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-operation-identifier': 'tenantId=11dbbfe2-89b8-4549-be10-cec364e59551,objectId=19105ccf-324e-4975-b49e-0d9659db9b55/brazilsoutheast/715cfb45-6a09-4cb8-9bef-7d9e9289cea3'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': '28cab4e8-c1c3-4045-a2f6-229f5456bd43'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'BRAZILSOUTHEAST:20260522T231644Z:28cab4e8-c1c3-4045-a2f6-229f5456bd43'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: 511BCD4B5662436BA74AA5CF685C4D05 Ref B: CPQ261090215054 Ref C: 2026-05-22T23:16:43Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:43 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: [
+  {
+    "properties": {
+      "hyperVGeneration": "V2",
+      "architecture": "x64",
+      "replicaType": "Managed",
+      "replicaCount": 10,
+      "goLiveDate": "2026-05-05T00:00:00+00:00"
+    },
+    "extendedLocation": null,
+    "location": "southcentralus",
+    "name": "22.04.202605030",
+    "id": "/Subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/Providers/Microsoft.Compute/Locations/southcentralus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/0001-com-ubuntu-server-jammy/Skus/22_04-lts-gen2/Versions/22.04.202605030"
+  }
+]
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: 2649d749-5fce-4b8a-b0c6-fb3196bf1cf4
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions/22.04.202605030?api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions/22.04.202605030?api-version=2024-11-01 HTTP/1.1" 200 1382
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '1382'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-resource': 'Microsoft.Compute/GetVMImageFromLocation3Min;12993,Microsoft.Compute/GetVMImageFromLocation30Min;73993'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-served-by': 'dd45aa3d-cf58-4be4-bf58-b27a0e753f46_134181500076955626'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': '4e235cb1-7e25-4ea4-8551-80e8019091bc'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-operation-identifier': 'tenantId=11dbbfe2-89b8-4549-be10-cec364e59551,objectId=19105ccf-324e-4975-b49e-0d9659db9b55/brazilsouth/cf89162d-bc3e-40a4-b46c-acfb7f340394'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': 'da36fcf4-c5c8-460b-aa89-ac53bb658cd8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'BRAZILSOUTH:20260522T231644Z:da36fcf4-c5c8-460b-aa89-ac53bb658cd8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: C52829027B254DE886E610F21617F066 Ref B: CPQ261090209052 Ref C: 2026-05-22T23:16:44Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:44 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: {
+  "properties": {
+    "hyperVGeneration": "V2",
+    "architecture": "x64",
+    "replicaType": "Managed",
+    "replicaCount": 10,
+    "disallowed": {
+      "vmDiskType": "Unmanaged"
+    },
+    "automaticOSUpgradeProperties": {
+      "automaticOSUpgradeSupported": false
+    },
+    "imageDeprecationStatus": {
+      "imageState": "Active"
+    },
+    "imageDiscontinuationStatus": {
+      "imageDiscontinuationState": "None",
+      "imageDiscontinuationDate": "9999-12-31T23:59:59.9999999+00:00"
+    },
+    "features": [
+      {
+        "name": "SecurityType",
+        "value": "TrustedLaunchSupported"
+      },
+      {
+        "name": "IsAcceleratedNetworkSupported",
+        "value": "True"
+      },
+      {
+        "name": "DiskControllerTypes",
+        "value": "SCSI, NVMe"
+      },
+      {
+        "name": "IsHibernateSupported",
+        "value": "True"
+      }
+    ],
+    "osDiskImage": {
+      "operatingSystem": "Linux",
+      "sizeInGb": 30
+    },
+    "dataDiskImages": [],
+    "goLiveDate": "2026-05-05T00:00:00+00:00"
+  },
+  "location": "southcentralus",
+  "name": "22.04.202605030",
+  "id": "/Subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/Providers/Microsoft.Compute/Locations/southcentralus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/0001-com-ubuntu-server-jammy/Skus/22_04-lts-gen2/Versions/22.04.202605030"
+}
+DEBUG: cli.azure.cli.command_modules.vm._validators: storage profile 'StorageProfile.ManagedPirImage'
+DEBUG: cli.azure.cli.command_modules.vm._validators: no subnet specified. Attempting to find an existing Vnet and subnet...
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: 0cffffc6-91ae-49b3-9990-87b0d129826a
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Network/virtualNetworks?api-version=2022-01-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Network/virtualNetworks?api-version=2022-01-01 HTTP/1.1" 200 12
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '12'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': 'fa771a6c-6dce-4474-b0aa-d81a86719bad'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': 'fa771a6c-6dce-4474-b0aa-d81a86719bad'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'SOUTHCENTRALUS:20260522T231644Z:fa771a6c-6dce-4474-b0aa-d81a86719bad'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: F6B3855662D146A382F2CC97C0AC537C Ref B: CPQ261090209040 Ref C: 2026-05-22T23:16:44Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:44 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: {"value":[]}
+DEBUG: cli.azure.cli.command_modules.vm._validators: no suitable subnet found. One will be created.
+DEBUG: cli.azure.cli.command_modules.vm._validators: new NSG will be created
+DEBUG: cli.azure.cli.command_modules.vm._validators: new public IP address will be created
+DEBUG: cli.azure.cli.command_modules.vm._validators: new NIC will be created
+INFO: cli.azure.cli.command_modules.vm._validators: Use existing SSH public key file: /Users/gabrieloliveira/.ssh/id_rsa.pub
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): azcliprod.blob.core.windows.net:443
+DEBUG: urllib3.connectionpool: https://azcliprod.blob.core.windows.net:443 "GET /cli/vm/aliases.json HTTP/1.1" 200 4460
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: 7ca2148f-e975-41ba-a230-4d0a1422ea4c
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions?$expand=properties&$orderby=name%20desc&$top=1&api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions?$expand=properties&$orderby=name%20desc&$top=1&api-version=2024-11-01 HTTP/1.1" 200 555
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '555'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-resource': 'Microsoft.Compute/ListVMImagesVersionsFromLocation3Min;15992,Microsoft.Compute/ListVMImagesVersionsFromLocation30Min;43992'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-served-by': 'dd45aa3d-cf58-4be4-bf58-b27a0e753f46_134181500076955626'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': 'c6d01e32-99fe-4c12-829e-ca3f4b2a884f'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-operation-identifier': 'tenantId=11dbbfe2-89b8-4549-be10-cec364e59551,objectId=19105ccf-324e-4975-b49e-0d9659db9b55/brazilsouth/5e6fb052-c597-4efc-857c-bb6edb1841e6'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': 'e5a05176-9d0b-4f97-9d18-85a6d1f5180c'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'BRAZILSOUTH:20260522T231646Z:e5a05176-9d0b-4f97-9d18-85a6d1f5180c'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: C92FCE3BDC1B4AEB965286EC3C1B483F Ref B: CPQ261090209025 Ref C: 2026-05-22T23:16:45Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:45 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: [
+  {
+    "properties": {
+      "hyperVGeneration": "V2",
+      "architecture": "x64",
+      "replicaType": "Managed",
+      "replicaCount": 10,
+      "goLiveDate": "2026-05-05T00:00:00+00:00"
+    },
+    "extendedLocation": null,
+    "location": "southcentralus",
+    "name": "22.04.202605030",
+    "id": "/Subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/Providers/Microsoft.Compute/Locations/southcentralus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/0001-com-ubuntu-server-jammy/Skus/22_04-lts-gen2/Versions/22.04.202605030"
+  }
+]
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: a3c81cdf-a9f7-42f6-8eb6-11f21c470626
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions/22.04.202605030?api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions/22.04.202605030?api-version=2024-11-01 HTTP/1.1" 200 1382
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '1382'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-resource': 'Microsoft.Compute/GetVMImageFromLocation3Min;12992,Microsoft.Compute/GetVMImageFromLocation30Min;73992'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-served-by': 'dd45aa3d-cf58-4be4-bf58-b27a0e753f46_134181500076955626'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': '8aed59fe-079a-4e7c-a3ff-4d24994ed04c'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-operation-identifier': 'tenantId=11dbbfe2-89b8-4549-be10-cec364e59551,objectId=19105ccf-324e-4975-b49e-0d9659db9b55/brazilsouth/f42665a3-4455-4523-bcde-b3943c5c8801'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': '6b236286-cb70-409f-820e-c6dbee26cc51'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'BRAZILSOUTH:20260522T231647Z:6b236286-cb70-409f-820e-c6dbee26cc51'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: 1D76FA2551B143F9995B01176B9567EC Ref B: CPQ261090217034 Ref C: 2026-05-22T23:16:46Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:46 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: {
+  "properties": {
+    "hyperVGeneration": "V2",
+    "architecture": "x64",
+    "replicaType": "Managed",
+    "replicaCount": 10,
+    "disallowed": {
+      "vmDiskType": "Unmanaged"
+    },
+    "automaticOSUpgradeProperties": {
+      "automaticOSUpgradeSupported": false
+    },
+    "imageDeprecationStatus": {
+      "imageState": "Active"
+    },
+    "imageDiscontinuationStatus": {
+      "imageDiscontinuationState": "None",
+      "imageDiscontinuationDate": "9999-12-31T23:59:59.9999999+00:00"
+    },
+    "features": [
+      {
+        "name": "SecurityType",
+        "value": "TrustedLaunchSupported"
+      },
+      {
+        "name": "IsAcceleratedNetworkSupported",
+        "value": "True"
+      },
+      {
+        "name": "DiskControllerTypes",
+        "value": "SCSI, NVMe"
+      },
+      {
+        "name": "IsHibernateSupported",
+        "value": "True"
+      }
+    ],
+    "osDiskImage": {
+      "operatingSystem": "Linux",
+      "sizeInGb": 30
+    },
+    "dataDiskImages": [],
+    "goLiveDate": "2026-05-05T00:00:00+00:00"
+  },
+  "location": "southcentralus",
+  "name": "22.04.202605030",
+  "id": "/Subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/Providers/Microsoft.Compute/Locations/southcentralus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/0001-com-ubuntu-server-jammy/Skus/22_04-lts-gen2/Versions/22.04.202605030"
+}
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: f2938a9b-deb6-4105-9e11-a58733c4b00f
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions?$expand=properties&$orderby=name%20desc&$top=1&api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions?$expand=properties&$orderby=name%20desc&$top=1&api-version=2024-11-01 HTTP/1.1" 200 555
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '555'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-resource': 'Microsoft.Compute/ListVMImagesVersionsFromLocation3Min;15991,Microsoft.Compute/ListVMImagesVersionsFromLocation30Min;43991'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-served-by': 'dd45aa3d-cf58-4be4-bf58-b27a0e753f46_134181500076955626'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': 'b56f08eb-faf4-4ba6-966a-7f2874fda65c'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-operation-identifier': 'tenantId=11dbbfe2-89b8-4549-be10-cec364e59551,objectId=19105ccf-324e-4975-b49e-0d9659db9b55/brazilsoutheast/a2a25419-079e-4ecb-bda8-95aa30541649'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': 'b67f3d9a-bcad-4039-8a2a-704342692033'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'BRAZILSOUTHEAST:20260522T231648Z:b67f3d9a-bcad-4039-8a2a-704342692033'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: 55B875D4B1364AC3AB9619E9EBF19BB9 Ref B: CPQ261090212042 Ref C: 2026-05-22T23:16:47Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:47 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: [
+  {
+    "properties": {
+      "hyperVGeneration": "V2",
+      "architecture": "x64",
+      "replicaType": "Managed",
+      "replicaCount": 10,
+      "goLiveDate": "2026-05-05T00:00:00+00:00"
+    },
+    "extendedLocation": null,
+    "location": "southcentralus",
+    "name": "22.04.202605030",
+    "id": "/Subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/Providers/Microsoft.Compute/Locations/southcentralus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/0001-com-ubuntu-server-jammy/Skus/22_04-lts-gen2/Versions/22.04.202605030"
+  }
+]
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token: scopes=('https://management.core.windows.net//.default',), kwargs={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: 04244bd3-88c8-44c8-ba2a-e3824b06597f
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions/22.04.202605030?api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'GET'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: This request has no body
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "GET /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/providers/Microsoft.Compute/locations/southcentralus/publishers/Canonical/artifacttypes/vmimage/offers/0001-com-ubuntu-server-jammy/skus/22_04-lts-gen2/versions/22.04.202605030?api-version=2024-11-01 HTTP/1.1" 200 1382
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 200
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '1382'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-resource': 'Microsoft.Compute/GetVMImageFromLocation3Min;12991,Microsoft.Compute/GetVMImageFromLocation30Min;73991'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-served-by': 'dd45aa3d-cf58-4be4-bf58-b27a0e753f46_134181500076955626'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': 'ee3d77f7-debb-4dc0-98fd-31d48e1070f5'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-operation-identifier': 'tenantId=11dbbfe2-89b8-4549-be10-cec364e59551,objectId=19105ccf-324e-4975-b49e-0d9659db9b55/brazilsoutheast/69ea81bc-5047-4bcf-8689-42419ee9378a'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-reads': '249'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-reads': '3749'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': 'faaa458b-5bf5-497f-bea6-78de20f618d9'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'BRAZILSOUTHEAST:20260522T231649Z:faaa458b-5bf5-497f-bea6-78de20f618d9'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: A2AFFA30F2634A5DBB0FF0E787DA083F Ref B: CPQ261090215060 Ref C: 2026-05-22T23:16:48Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:48 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: {
+  "properties": {
+    "hyperVGeneration": "V2",
+    "architecture": "x64",
+    "replicaType": "Managed",
+    "replicaCount": 10,
+    "disallowed": {
+      "vmDiskType": "Unmanaged"
+    },
+    "automaticOSUpgradeProperties": {
+      "automaticOSUpgradeSupported": false
+    },
+    "imageDeprecationStatus": {
+      "imageState": "Active"
+    },
+    "imageDiscontinuationStatus": {
+      "imageDiscontinuationState": "None",
+      "imageDiscontinuationDate": "9999-12-31T23:59:59.9999999+00:00"
+    },
+    "features": [
+      {
+        "name": "SecurityType",
+        "value": "TrustedLaunchSupported"
+      },
+      {
+        "name": "IsAcceleratedNetworkSupported",
+        "value": "True"
+      },
+      {
+        "name": "DiskControllerTypes",
+        "value": "SCSI, NVMe"
+      },
+      {
+        "name": "IsHibernateSupported",
+        "value": "True"
+      }
+    ],
+    "osDiskImage": {
+      "operatingSystem": "Linux",
+      "sizeInGb": 30
+    },
+    "dataDiskImages": [],
+    "goLiveDate": "2026-05-05T00:00:00+00:00"
+  },
+  "location": "southcentralus",
+  "name": "22.04.202605030",
+  "id": "/Subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/Providers/Microsoft.Compute/Locations/southcentralus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/0001-com-ubuntu-server-jammy/Skus/22_04-lts-gen2/Versions/22.04.202605030"
+}
+WARNING: cli.azure.cli.command_modules.vm._validators: Consider upgrading security for your workloads using Azure Trusted Launch VMs. To know more about Trusted Launch, please visit https://aka.ms/TrustedLaunch.
+DEBUG: cli.azure.cli.core.commands.client_factory: Getting management service client client_type=ResourceManagementClient
+DEBUG: urllib3.util.retry: Converted retries value: 1 -> Retry(total=1, connect=None, read=None, redirect=None, status=None)
+DEBUG: msal.application: Broker enabled? None
+DEBUG: cli.azure.cli.core.auth.credential_adaptor: CredentialAdaptor.get_token_info: scopes=('https://management.core.windows.net//.default',), options={}
+DEBUG: cli.azure.cli.core.auth.msal_credentials: UserCredential.acquire_token: scopes=['https://management.core.windows.net//.default'], claims_challenge=None, kwargs={}
+DEBUG: msal.application: Cache hit an AT
+DEBUG: msal.telemetry: Generate or reuse correlation_id: 5a36dc41-396b-48b1-941f-d1311f56ab0e
+DEBUG: cli.azure.cli.core.sdk.policies: Request URL: 'https://management.azure.com/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourcegroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Resources/deployments/vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt?api-version=2024-11-01'
+DEBUG: cli.azure.cli.core.sdk.policies: Request method: 'PUT'
+DEBUG: cli.azure.cli.core.sdk.policies: Request headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '3764'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Accept': 'application/json'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-client-request-id': '4adb5796-5634-11f1-a602-5ace3bb2eae2'
+DEBUG: cli.azure.cli.core.sdk.policies:     'CommandName': 'vm create'
+DEBUG: cli.azure.cli.core.sdk.policies:     'ParameterSetName': '--resource-group --name --image --admin-username --size --generate-ssh-keys --debug'
+DEBUG: cli.azure.cli.core.sdk.policies:     'User-Agent': 'AZURECLI/2.86.0 (HOMEBREW) azsdk-python-core/1.39.0 Python/3.13.13 (macOS-15.6-arm64-arm-64bit-Mach-O)'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Authorization': '*****'
+DEBUG: cli.azure.cli.core.sdk.policies: Request body:
+DEBUG: cli.azure.cli.core.sdk.policies: {"properties": {"template": {"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#", "contentVersion": "1.0.0.0", "parameters": {}, "variables": {}, "resources": [{"name": "vm-clyvo-appVNET", "type": "Microsoft.Network/virtualNetworks", "location": "southcentralus", "apiVersion": "2015-06-15", "dependsOn": [], "tags": {}, "properties": {"addressSpace": {"addressPrefixes": ["10.0.0.0/16"]}, "subnets": [{"name": "vm-clyvo-appSubnet", "properties": {"addressPrefix": "10.0.0.0/24"}}]}}, {"type": "Microsoft.Network/networkSecurityGroups", "name": "vm-clyvo-appNSG", "apiVersion": "2015-06-15", "location": "southcentralus", "tags": {}, "dependsOn": [], "properties": {"securityRules": [{"name": "default-allow-ssh", "properties": {"protocol": "Tcp", "sourcePortRange": "*", "destinationPortRange": "22", "sourceAddressPrefix": "*", "destinationAddressPrefix": "*", "access": "Allow", "priority": 1000, "direction": "Inbound"}}]}}, {"apiVersion": "2022-01-01", "type": "Microsoft.Network/publicIPAddresses", "name": "vm-clyvo-appPublicIP", "location": "southcentralus", "tags": {}, "dependsOn": [], "properties": {"publicIPAllocationMethod": "Static"}, "sku": {"name": "Standard"}}, {"apiVersion": "2015-06-15", "type": "Microsoft.Network/networkInterfaces", "name": "vm-clyvo-appVMNic", "location": "southcentralus", "tags": {}, "dependsOn": ["Microsoft.Network/virtualNetworks/vm-clyvo-appVNET", "Microsoft.Network/networkSecurityGroups/vm-clyvo-appNSG", "Microsoft.Network/publicIpAddresses/vm-clyvo-appPublicIP"], "properties": {"ipConfigurations": [{"name": "ipconfigvm-clyvo-app", "properties": {"privateIPAllocationMethod": "Dynamic", "subnet": {"id": "/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Network/virtualNetworks/vm-clyvo-appVNET/subnets/vm-clyvo-appSubnet"}, "publicIPAddress": {"id": "/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Network/publicIPAddresses/vm-clyvo-appPublicIP"}}}], "networkSecurityGroup": {"id": "/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Network/networkSecurityGroups/vm-clyvo-appNSG"}}}, {"apiVersion": "2025-04-01", "type": "Microsoft.Compute/virtualMachines", "name": "vm-clyvo-app", "location": "southcentralus", "tags": {}, "dependsOn": ["Microsoft.Network/networkInterfaces/vm-clyvo-appVMNic"], "properties": {"hardwareProfile": {"vmSize": "Standard_B2s_v2"}, "networkProfile": {"networkInterfaces": [{"id": "/subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourceGroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Network/networkInterfaces/vm-clyvo-appVMNic", "properties": {"deleteOption": null}}]}, "storageProfile": {"osDisk": {"createOption": "fromImage", "name": null, "caching": "ReadWrite", "managedDisk": {"storageAccountType": null}}, "imageReference": {"publisher": "Canonical", "offer": "0001-com-ubuntu-server-jammy", "sku": "22_04-lts-gen2", "version": "latest"}}, "osProfile": {"computerName": "vm-clyvo-app", "adminUsername": "azureuser", "linuxConfiguration": {"disablePasswordAuthentication": true, "ssh": {"publicKeys": [{"keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWqsT7HQBvKzGbGk9l1loA3xOCp+dpLEHlktb9v3yH/KvFRKg6Epo6ebMzQX5utQrSOExfN+AIuv5in+I+msNNdPXk4z0wD24b+hsmjINcI2LKD8tFtIbI3RH6PoMRS17zDku57vNrNsCofHtI+UQ31t3WjxRerIlbhCg0PFc+K2lGlryXNJ7yEW4UNloaO60xkYnmcGxdQkyksku9F87aS/LoNrnuc1C1ozvDOJcboLkkbX8pGDpxj9Qk908s6dXc4XOEE+9+feXbkSoXVyMZMIB0HxP7M+/bz0D7hllGWvhZt5uBA2zU2CUSgXVLAfZs27PgusH//h8VhPM0GVnz", "path": "/home/azureuser/.ssh/authorized_keys"}]}}}}}], "outputs": {}}, "parameters": {}, "mode": "incremental"}}
+DEBUG: urllib3.connectionpool: Starting new HTTPS connection (1): management.azure.com:443
+DEBUG: urllib3.connectionpool: https://management.azure.com:443 "PUT /subscriptions/eeae5d6a-f732-42e6-a2c7-696db48edf9f/resourcegroups/rg-clyvo-devops-southcentralus/providers/Microsoft.Resources/deployments/vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt?api-version=2024-11-01 HTTP/1.1" 400 1550
+DEBUG: cli.azure.cli.core.sdk.policies: Response status: 400
+DEBUG: cli.azure.cli.core.sdk.policies: Response headers:
+DEBUG: cli.azure.cli.core.sdk.policies:     'Cache-Control': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Pragma': 'no-cache'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Length': '1550'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Content-Type': 'application/json; charset=utf-8'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Expires': '-1'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-failure-cause': 'gateway'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-writes': '199'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-ratelimit-remaining-subscription-global-writes': '2999'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-request-id': '042e3030-d503-4b09-8870-2287469daa52'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-correlation-request-id': '042e3030-d503-4b09-8870-2287469daa52'
+DEBUG: cli.azure.cli.core.sdk.policies:     'x-ms-routing-request-id': 'SOUTHCENTRALUS:20260522T231650Z:042e3030-d503-4b09-8870-2287469daa52'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Content-Type-Options': 'nosniff'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-Cache': 'CONFIG_NOCACHE'
+DEBUG: cli.azure.cli.core.sdk.policies:     'X-MSEdge-Ref': 'Ref A: D65BF8DD06A443C58087D658EA49B960 Ref B: CPQ261090211060 Ref C: 2026-05-22T23:16:49Z'
+DEBUG: cli.azure.cli.core.sdk.policies:     'Date': 'Fri, 22 May 2026 23:16:49 GMT'
+DEBUG: cli.azure.cli.core.sdk.policies: Response content:
+DEBUG: cli.azure.cli.core.sdk.policies: Body is streamable
+DEBUG: cli.azure.cli.core.azclierror: Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 789, in _run_job
+    result = cmd_copy(params)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 335, in __call__
+    return self.handler(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/command_operation.py", line 120, in handler
+    return op(**command_args)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/command_modules/vm/custom.py", line 1256, in create_vm
+    LongRunningOperation(cmd.cli_ctx)(client.begin_create_or_update(resource_group_name, deployment_name, deployment))
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/core/tracing/decorator.py", line 119, in wrapper_use_tracer
+    return func(*args, **kwargs)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/mgmt/resource/resources/v2024_11_01/operations/_operations.py", line 11281, in begin_create_or_update
+    raw_result = self._create_or_update_initial(
+        resource_group_name=resource_group_name,
+    ...<7 lines>...
+        **kwargs
+    )
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/mgmt/resource/resources/v2024_11_01/operations/_operations.py", line 11174, in _create_or_update_initial
+    raise HttpResponseError(response=response, error_format=ARMErrorFormat)
+azure.core.exceptions.HttpResponseError: (InvalidTemplateDeployment) The template deployment 'vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt' is not valid according to the validation procedure. The following resource provider(s) - 'Microsoft.Compute/virtualMachines (2025-04-01)' reported preflight validation errors. Tracking id is '042e3030-d503-4b09-8870-2287469daa52'. See inner errors for details.
+Code: InvalidTemplateDeployment
+Message: The template deployment 'vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt' is not valid according to the validation procedure. The following resource provider(s) - 'Microsoft.Compute/virtualMachines (2025-04-01)' reported preflight validation errors. Tracking id is '042e3030-d503-4b09-8870-2287469daa52'. See inner errors for details.
+Exception Details:	(QuotaExceeded) Operation could not be completed as it results in exceeding approved standardBsv2Family Cores quota. Additional details - Deployment Model: Resource Manager, Location: southcentralus, Current Limit: 0, Current Usage: 0, Additional Required: 2, (Minimum) New Limit Required: 2. Setup Alerts when Quota reaches threshold. Learn more at https://aka.ms/quotamonitoringalerting . Submit a request for Quota increase at https://aka.ms/ProdportalCRP/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22:%22eeae5d6a-f732-42e6-a2c7-696db48edf9f%22,%22command%22:%22openQuotaApprovalBlade%22,%22quotas%22:[%7B%22location%22:%22southcentralus%22,%22providerId%22:%22Microsoft.Compute%22,%22resourceName%22:%22standardBsv2Family%22,%22quotaRequest%22:%7B%22properties%22:%7B%22limit%22:2,%22unit%22:%22Count%22,%22name%22:%7B%22value%22:%22standardBsv2Family%22%7D%7D%7D%7D]%7D by specifying parameters listed in the ‘Details’ section for deployment to succeed. Please read more about quota limits at https://docs.microsoft.com/en-us/azure/azure-supportability/per-vm-quota-requests
+	Code: QuotaExceeded
+	Message: Operation could not be completed as it results in exceeding approved standardBsv2Family Cores quota. Additional details - Deployment Model: Resource Manager, Location: southcentralus, Current Limit: 0, Current Usage: 0, Additional Required: 2, (Minimum) New Limit Required: 2. Setup Alerts when Quota reaches threshold. Learn more at https://aka.ms/quotamonitoringalerting . Submit a request for Quota increase at https://aka.ms/ProdportalCRP/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22:%22eeae5d6a-f732-42e6-a2c7-696db48edf9f%22,%22command%22:%22openQuotaApprovalBlade%22,%22quotas%22:[%7B%22location%22:%22southcentralus%22,%22providerId%22:%22Microsoft.Compute%22,%22resourceName%22:%22standardBsv2Family%22,%22quotaRequest%22:%7B%22properties%22:%7B%22limit%22:2,%22unit%22:%22Count%22,%22name%22:%7B%22value%22:%22standardBsv2Family%22%7D%7D%7D%7D]%7D by specifying parameters listed in the ‘Details’ section for deployment to succeed. Please read more about quota limits at https://docs.microsoft.com/en-us/azure/azure-supportability/per-vm-quota-requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/arm.py", line 109, in handle_template_based_exception
+    raise CLIError(ex.inner_exception.error.message)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'error'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/knack/cli.py", line 233, in invoke
+    cmd_result = self.invocation.execute(args)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 677, in execute
+    raise ex
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 820, in _run_jobs_serially
+    results.append(self._run_job(expanded_arg, cmd_copy))
+                   ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 812, in _run_job
+    return cmd_copy.exception_handler(ex)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/arm.py", line 112, in handle_template_based_exception
+    raise_subdivision_deployment_error(ex.response.internal_response.text, ex.error.code if ex.error else None)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/requests/models.py", line 928, in text
+    if not self.content:
+           ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/requests/models.py", line 899, in content
+    raise RuntimeError("The content for this response was already consumed")
+RuntimeError: The content for this response was already consumed
+
+ERROR: cli.azure.cli.core.azclierror: The command failed with an unexpected error. Here is the traceback:
+ERROR: az_command_data_logger: The command failed with an unexpected error. Here is the traceback:
+ERROR: cli.azure.cli.core.azclierror: The content for this response was already consumed
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 789, in _run_job
+    result = cmd_copy(params)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 335, in __call__
+    return self.handler(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/command_operation.py", line 120, in handler
+    return op(**command_args)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/command_modules/vm/custom.py", line 1256, in create_vm
+    LongRunningOperation(cmd.cli_ctx)(client.begin_create_or_update(resource_group_name, deployment_name, deployment))
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/core/tracing/decorator.py", line 119, in wrapper_use_tracer
+    return func(*args, **kwargs)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/mgmt/resource/resources/v2024_11_01/operations/_operations.py", line 11281, in begin_create_or_update
+    raw_result = self._create_or_update_initial(
+        resource_group_name=resource_group_name,
+    ...<7 lines>...
+        **kwargs
+    )
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/mgmt/resource/resources/v2024_11_01/operations/_operations.py", line 11174, in _create_or_update_initial
+    raise HttpResponseError(response=response, error_format=ARMErrorFormat)
+azure.core.exceptions.HttpResponseError: (InvalidTemplateDeployment) The template deployment 'vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt' is not valid according to the validation procedure. The following resource provider(s) - 'Microsoft.Compute/virtualMachines (2025-04-01)' reported preflight validation errors. Tracking id is '042e3030-d503-4b09-8870-2287469daa52'. See inner errors for details.
+Code: InvalidTemplateDeployment
+Message: The template deployment 'vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt' is not valid according to the validation procedure. The following resource provider(s) - 'Microsoft.Compute/virtualMachines (2025-04-01)' reported preflight validation errors. Tracking id is '042e3030-d503-4b09-8870-2287469daa52'. See inner errors for details.
+Exception Details:	(QuotaExceeded) Operation could not be completed as it results in exceeding approved standardBsv2Family Cores quota. Additional details - Deployment Model: Resource Manager, Location: southcentralus, Current Limit: 0, Current Usage: 0, Additional Required: 2, (Minimum) New Limit Required: 2. Setup Alerts when Quota reaches threshold. Learn more at https://aka.ms/quotamonitoringalerting . Submit a request for Quota increase at https://aka.ms/ProdportalCRP/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22:%22eeae5d6a-f732-42e6-a2c7-696db48edf9f%22,%22command%22:%22openQuotaApprovalBlade%22,%22quotas%22:[%7B%22location%22:%22southcentralus%22,%22providerId%22:%22Microsoft.Compute%22,%22resourceName%22:%22standardBsv2Family%22,%22quotaRequest%22:%7B%22properties%22:%7B%22limit%22:2,%22unit%22:%22Count%22,%22name%22:%7B%22value%22:%22standardBsv2Family%22%7D%7D%7D%7D]%7D by specifying parameters listed in the ‘Details’ section for deployment to succeed. Please read more about quota limits at https://docs.microsoft.com/en-us/azure/azure-supportability/per-vm-quota-requests
+	Code: QuotaExceeded
+	Message: Operation could not be completed as it results in exceeding approved standardBsv2Family Cores quota. Additional details - Deployment Model: Resource Manager, Location: southcentralus, Current Limit: 0, Current Usage: 0, Additional Required: 2, (Minimum) New Limit Required: 2. Setup Alerts when Quota reaches threshold. Learn more at https://aka.ms/quotamonitoringalerting . Submit a request for Quota increase at https://aka.ms/ProdportalCRP/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22:%22eeae5d6a-f732-42e6-a2c7-696db48edf9f%22,%22command%22:%22openQuotaApprovalBlade%22,%22quotas%22:[%7B%22location%22:%22southcentralus%22,%22providerId%22:%22Microsoft.Compute%22,%22resourceName%22:%22standardBsv2Family%22,%22quotaRequest%22:%7B%22properties%22:%7B%22limit%22:2,%22unit%22:%22Count%22,%22name%22:%7B%22value%22:%22standardBsv2Family%22%7D%7D%7D%7D]%7D by specifying parameters listed in the ‘Details’ section for deployment to succeed. Please read more about quota limits at https://docs.microsoft.com/en-us/azure/azure-supportability/per-vm-quota-requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/arm.py", line 109, in handle_template_based_exception
+    raise CLIError(ex.inner_exception.error.message)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'error'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/knack/cli.py", line 233, in invoke
+    cmd_result = self.invocation.execute(args)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 677, in execute
+    raise ex
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 820, in _run_jobs_serially
+    results.append(self._run_job(expanded_arg, cmd_copy))
+                   ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 812, in _run_job
+    return cmd_copy.exception_handler(ex)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/arm.py", line 112, in handle_template_based_exception
+    raise_subdivision_deployment_error(ex.response.internal_response.text, ex.error.code if ex.error else None)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/requests/models.py", line 928, in text
+    if not self.content:
+           ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/requests/models.py", line 899, in content
+    raise RuntimeError("The content for this response was already consumed")
+RuntimeError: The content for this response was already consumed
+ERROR: az_command_data_logger: The content for this response was already consumed
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 789, in _run_job
+    result = cmd_copy(params)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 335, in __call__
+    return self.handler(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/command_operation.py", line 120, in handler
+    return op(**command_args)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/command_modules/vm/custom.py", line 1256, in create_vm
+    LongRunningOperation(cmd.cli_ctx)(client.begin_create_or_update(resource_group_name, deployment_name, deployment))
+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/core/tracing/decorator.py", line 119, in wrapper_use_tracer
+    return func(*args, **kwargs)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/mgmt/resource/resources/v2024_11_01/operations/_operations.py", line 11281, in begin_create_or_update
+    raw_result = self._create_or_update_initial(
+        resource_group_name=resource_group_name,
+    ...<7 lines>...
+        **kwargs
+    )
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/mgmt/resource/resources/v2024_11_01/operations/_operations.py", line 11174, in _create_or_update_initial
+    raise HttpResponseError(response=response, error_format=ARMErrorFormat)
+azure.core.exceptions.HttpResponseError: (InvalidTemplateDeployment) The template deployment 'vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt' is not valid according to the validation procedure. The following resource provider(s) - 'Microsoft.Compute/virtualMachines (2025-04-01)' reported preflight validation errors. Tracking id is '042e3030-d503-4b09-8870-2287469daa52'. See inner errors for details.
+Code: InvalidTemplateDeployment
+Message: The template deployment 'vm_deploy_dtEVSMeUlCNbaiiBotmUR2Ef4AoXYwGt' is not valid according to the validation procedure. The following resource provider(s) - 'Microsoft.Compute/virtualMachines (2025-04-01)' reported preflight validation errors. Tracking id is '042e3030-d503-4b09-8870-2287469daa52'. See inner errors for details.
+Exception Details:	(QuotaExceeded) Operation could not be completed as it results in exceeding approved standardBsv2Family Cores quota. Additional details - Deployment Model: Resource Manager, Location: southcentralus, Current Limit: 0, Current Usage: 0, Additional Required: 2, (Minimum) New Limit Required: 2. Setup Alerts when Quota reaches threshold. Learn more at https://aka.ms/quotamonitoringalerting . Submit a request for Quota increase at https://aka.ms/ProdportalCRP/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22:%22eeae5d6a-f732-42e6-a2c7-696db48edf9f%22,%22command%22:%22openQuotaApprovalBlade%22,%22quotas%22:[%7B%22location%22:%22southcentralus%22,%22providerId%22:%22Microsoft.Compute%22,%22resourceName%22:%22standardBsv2Family%22,%22quotaRequest%22:%7B%22properties%22:%7B%22limit%22:2,%22unit%22:%22Count%22,%22name%22:%7B%22value%22:%22standardBsv2Family%22%7D%7D%7D%7D]%7D by specifying parameters listed in the ‘Details’ section for deployment to succeed. Please read more about quota limits at https://docs.microsoft.com/en-us/azure/azure-supportability/per-vm-quota-requests
+	Code: QuotaExceeded
+	Message: Operation could not be completed as it results in exceeding approved standardBsv2Family Cores quota. Additional details - Deployment Model: Resource Manager, Location: southcentralus, Current Limit: 0, Current Usage: 0, Additional Required: 2, (Minimum) New Limit Required: 2. Setup Alerts when Quota reaches threshold. Learn more at https://aka.ms/quotamonitoringalerting . Submit a request for Quota increase at https://aka.ms/ProdportalCRP/#blade/Microsoft_Azure_Capacity/UsageAndQuota.ReactView/Parameters/%7B%22subscriptionId%22:%22eeae5d6a-f732-42e6-a2c7-696db48edf9f%22,%22command%22:%22openQuotaApprovalBlade%22,%22quotas%22:[%7B%22location%22:%22southcentralus%22,%22providerId%22:%22Microsoft.Compute%22,%22resourceName%22:%22standardBsv2Family%22,%22quotaRequest%22:%7B%22properties%22:%7B%22limit%22:2,%22unit%22:%22Count%22,%22name%22:%7B%22value%22:%22standardBsv2Family%22%7D%7D%7D%7D]%7D by specifying parameters listed in the ‘Details’ section for deployment to succeed. Please read more about quota limits at https://docs.microsoft.com/en-us/azure/azure-supportability/per-vm-quota-requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/arm.py", line 109, in handle_template_based_exception
+    raise CLIError(ex.inner_exception.error.message)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'error'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/knack/cli.py", line 233, in invoke
+    cmd_result = self.invocation.execute(args)
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 677, in execute
+    raise ex
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 820, in _run_jobs_serially
+    results.append(self._run_job(expanded_arg, cmd_copy))
+                   ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/__init__.py", line 812, in _run_job
+    return cmd_copy.exception_handler(ex)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/core/commands/arm.py", line 112, in handle_template_based_exception
+    raise_subdivision_deployment_error(ex.response.internal_response.text, ex.error.code if ex.error else None)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/requests/models.py", line 928, in text
+    if not self.content:
+           ^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/requests/models.py", line 899, in content
+    raise RuntimeError("The content for this response was already consumed")
+RuntimeError: The content for this response was already consumed
+To check existing issues, please visit: https://github.com/Azure/azure-cli/issues
+DEBUG: cli.knack.cli: Event: Cli.PostExecute [<function AzCliLogging.deinit_cmd_metadata_logging at 0x103e40860>]
+INFO: az_command_data_logger: exit code: 1
+INFO: cli.__main__: Command ran in 8.405 seconds (init: 0.050, invoke: 8.356)
+INFO: telemetry.main: Begin splitting cli events and extra events, total events: 1
+INFO: telemetry.main: Finish splitting cli events and extra events, cli events: 1
+INFO: telemetry.save: Save telemetry record of length 8707 in cache file under /Users/gabrieloliveira/.azure/telemetry/20260522201650315
+INFO: telemetry.main: Begin creating telemetry upload process.
+INFO: telemetry.process: Creating upload process: "/opt/homebrew/Cellar/azure-cli/2.86.0/libexec/bin/python /opt/homebrew/Cellar/azure-cli/2.86.0/libexec/lib/python3.13/site-packages/azure/cli/telemetry/__init__.py /Users/gabrieloliveira/.azure /Users/gabrieloliveira/.azure/telemetry/20260522201650315"
+INFO: telemetry.process: Return from creating process 41758
+INFO: telemetry.main: Finish creating telemetry upload process.

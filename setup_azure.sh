@@ -15,7 +15,7 @@ LOCATION="japaneast"
 VM_NAME="vm-clyvo-app"
 IMAGE="Ubuntu2204"
 ADMIN_USER="azureuser"
-VM_SIZE="Standard_B1s"
+VM_SIZE="Standard_B2s"
 
 echo "========================================="
 echo "Iniciando Provisionamento na Azure..."

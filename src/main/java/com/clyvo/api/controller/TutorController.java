@@ -49,7 +49,7 @@ public class TutorController {
             tutor.setNome(tutorAtualizado.getNome());
             tutor.setTelefone(tutorAtualizado.getTelefone());
             tutor.setEmail(tutorAtualizado.getEmail());
-            tutor.setQtdPets(tutorAtualizado.getQtdPets());
+            tutor.setQuantidadePets(tutorAtualizado.getQuantidadePets());
             return ResponseEntity.ok(tutorRepository.save(tutor));
         }).orElse(ResponseEntity.notFound().build());
     }

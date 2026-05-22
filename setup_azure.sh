@@ -11,10 +11,11 @@
 
 # Variáveis do Projeto
 RESOURCE_GROUP="rg-clyvo-devops"
-LOCATION="eastus"
+LOCATION="japaneast"
 VM_NAME="vm-clyvo-app"
 IMAGE="Ubuntu2204"
 ADMIN_USER="azureuser"
+VM_SIZE="Standard_B1s"
 
 echo "========================================="
 echo "Iniciando Provisionamento na Azure..."
@@ -25,38 +26,14 @@ echo "[1/4] Criando Resource Group ($RESOURCE_GROUP)..."
 az group create --name $RESOURCE_GROUP --location $LOCATION -o none
 
 # 2. Criar a Máquina Virtual (Linux) com script de inicialização injetado
-# O cloud-init.txt contém os comandos para instalar Git, Nano e Docker (Itens 1.3 e 1.4)
-echo "[2/4] Criando Máquina Virtual ($VM_NAME) e instalando ferramentas (Docker, Git, Nano)..."
-
-# Criando arquivo cloud-init para instalar dependências automaticamente
-cat <<EOF > cloud-init.txt
-#cloud-config
-package_update: true
-package_upgrade: true
-packages:
-  - git
-  - nano
-  - curl
-  - apt-transport-https
-  - ca-certificates
-  - software-properties-common
-runcmd:
-  # Instalar Docker
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-  - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  - apt-get update
-  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-  - usermod -aG docker $ADMIN_USER
-  # Instalar Docker Compose (standalone para garantir compatibilidade com docker-compose.yml antigos)
-  - curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-  - chmod +x /usr/local/bin/docker-compose
-EOF
+echo "[2/4] Criando Máquina Virtual ($VM_NAME) e instalando ferramentas..."
 
 az vm create \
   --resource-group $RESOURCE_GROUP \
   --name $VM_NAME \
   --image $IMAGE \
   --admin-username $ADMIN_USER \
+  --size $VM_SIZE \
   --generate-ssh-keys \
   --custom-data cloud-init.txt \
   --output json

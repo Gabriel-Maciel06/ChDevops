@@ -12,4 +12,9 @@ public class ClyvoApiApplication {
 		SpringApplication.run(ClyvoApiApplication.class, args);
 	}
 
+	@org.springframework.context.annotation.Bean
+	public org.springframework.cache.CacheManager cacheManager() {
+		return new org.springframework.cache.concurrent.ConcurrentMapCacheManager();
+	}
+
 }

@@ -10,12 +10,12 @@
 # 1.4) Instalar as ferramentas necessárias ao projeto (Git, nano etc)
 
 # Variáveis do Projeto
-RESOURCE_GROUP="rg-clyvo-devops-eastus"
-LOCATION="eastus"
+RESOURCE_GROUP="rg-clyvo-devops-southcentralus"
+LOCATION="southcentralus"
 VM_NAME="vm-clyvo-app"
 IMAGE="Ubuntu2204"
 ADMIN_USER="azureuser"
-VM_SIZE="Standard_B2s"
+VM_SIZE="Standard_B2s_v2"
 
 echo "========================================="
 echo "Iniciando Provisionamento na Azure..."

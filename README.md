@@ -29,6 +29,9 @@ A modernização da infraestrutura do Clyvo Vet utilizando **Docker, Docker Comp
 
 Abaixo está o fluxo detalhado da solução implementada na **Microsoft Azure** utilizando **Docker Compose** para isolamento e orquestração local:
 
+![Diagrama de Arquitetura Azure Clyvo Vet](clyvo_devops_architecture.png)
+
+### Diagrama Interativo (Mermaid)
 ```mermaid
 graph TD
     subgraph Cliente["Dispositivos do Usuário (Tutores & Clínicas)"]

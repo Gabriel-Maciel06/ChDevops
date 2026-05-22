@@ -28,6 +28,11 @@ az group create --name $RESOURCE_GROUP --location $LOCATION -o none
 # 2. Criar a Máquina Virtual (Linux) com script de inicialização injetado
 echo "[2/4] Criando Máquina Virtual ($VM_NAME) e instalando ferramentas..."
 
+if [ ! -f "cloud-init.txt" ]; then
+    echo "Baixando cloud-init.txt..."
+    curl -s -O https://raw.githubusercontent.com/Gabriel-Maciel06/ChDevops/main/cloud-init.txt
+fi
+
 az vm create \
   --resource-group $RESOURCE_GROUP \
   --name $VM_NAME \

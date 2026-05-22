@@ -1,15 +1,18 @@
 package com.clyvo.api.controller;
 
+import com.clyvo.api.dto.TutorDTO;
 import com.clyvo.api.model.Pet;
-import com.clyvo.api.model.Tutor;
 import com.clyvo.api.repository.PetRepository;
-import com.clyvo.api.repository.TutorRepository;
+import com.clyvo.api.service.TutorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import java.net.URI;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,14 +20,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TutorController {
 
-    private final TutorRepository tutorRepository;
+    private final TutorService tutorService;
     private final PetRepository petRepository;
 
+    @GetMapping
+    public ResponseEntity<Page<TutorDTO>> listarTodos(Pageable pageable) {
+        return ResponseEntity.ok(tutorService.listarTodos(pageable));
+    }
+
     @GetMapping("/{cpf}")
-    public ResponseEntity<Tutor> buscarPerfil(@PathVariable String cpf) {
-        return tutorRepository.findById(cpf)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<TutorDTO> buscarPerfil(@PathVariable String cpf) {
+        return ResponseEntity.ok(tutorService.buscarPorCpf(cpf));
     }
 
     @GetMapping("/{cpf}/pets")
@@ -34,8 +40,8 @@ public class TutorController {
     }
 
     @PostMapping
-    public ResponseEntity<Tutor> salvar(@RequestBody Tutor tutor) {
-        Tutor salvo = tutorRepository.save(tutor);
+    public ResponseEntity<TutorDTO> salvar(@Valid @RequestBody TutorDTO dto) {
+        TutorDTO salvo = tutorService.salvar(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{cpf}")
                 .buildAndExpand(salvo.getCpf())
@@ -44,19 +50,13 @@ public class TutorController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity<Tutor> atualizar(@PathVariable String cpf, @RequestBody Tutor tutorAtualizado) {
-        return tutorRepository.findById(cpf).map(tutor -> {
-            tutor.setNome(tutorAtualizado.getNome());
-            tutor.setTelefone(tutorAtualizado.getTelefone());
-            tutor.setEmail(tutorAtualizado.getEmail());
-            tutor.setQuantidadePets(tutorAtualizado.getQuantidadePets());
-            return ResponseEntity.ok(tutorRepository.save(tutor));
-        }).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<TutorDTO> atualizar(@PathVariable String cpf, @Valid @RequestBody TutorDTO dto) {
+        return ResponseEntity.ok(tutorService.atualizar(cpf, dto));
     }
 
     @DeleteMapping("/{cpf}")
     public ResponseEntity<Void> deletar(@PathVariable String cpf) {
-        tutorRepository.deleteById(cpf);
+        tutorService.deletar(cpf);
         return ResponseEntity.noContent().build();
     }
 }

@@ -15,6 +15,6 @@ runcmd:
   - apt-get update
   - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
   - usermod -aG docker azureuser
-  # Instalar Docker Compose (standalone para garantir compatibilidade com docker-compose.yml antigos)
-  - curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-Darwin-arm64" -o /usr/local/bin/docker-compose
+  # Instalar Docker Compose (standalone)
+  - curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
   - chmod +x /usr/local/bin/docker-compose

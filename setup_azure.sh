@@ -10,8 +10,8 @@
 # 1.4) Instalar as ferramentas necessárias ao projeto (Git, nano etc)
 
 # Variáveis do Projeto
-RESOURCE_GROUP="rg-clyvo-devops"
-LOCATION="japaneast"
+RESOURCE_GROUP="rg-clyvo-devops-eastus"
+LOCATION="eastus"
 VM_NAME="vm-clyvo-app"
 IMAGE="Ubuntu2204"
 ADMIN_USER="azureuser"

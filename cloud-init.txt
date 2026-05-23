@@ -9,7 +9,7 @@ packages:
   - ca-certificates
   - software-properties-common
 runcmd:
-  # Instalar Docker via script oficial (método mais confiável)
+  # Instalar Docker via script oficial (metodo mais confiavel)
   - curl -fsSL https://get.docker.com | sh
   - usermod -aG docker azureuser
   - systemctl enable docker

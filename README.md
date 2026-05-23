@@ -155,6 +155,26 @@ Caso queira testar a conteinerização localmente:
 
 ---
 
+## 📸 Evidências de Execução (Prints)
+
+Para comprovar a execução fim a fim da infraestrutura, deploy e testes via Postman, confira as evidências abaixo capturadas durante a implementação:
+
+<details>
+<summary>Clique para expandir e ver os prints</summary>
+
+![Evidência 1](assets/print-1.png)
+![Evidência 2](assets/print-2.png)
+![Evidência 3](assets/print-3.png)
+![Evidência 4](assets/print-4.png)
+![Evidência 5](assets/print-5.png)
+![Evidência 6](assets/print-6.png)
+![Evidência 7](assets/print-7.png)
+![Evidência 8](assets/print-8.png)
+
+</details>
+
+---
+
 ## 📝 Arquivos de Configuração de DevOps
 
 ### 1. Dockerfile (`projects/clyvo-api/Dockerfile`)

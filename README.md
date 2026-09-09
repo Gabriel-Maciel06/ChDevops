@@ -1,10 +1,16 @@
 # Clyvo Vet - Enterprise Cloud Architecture & DevOps 🐾☁️
+### **Entrega Oficial - 3ª Sprint: DevOps Tools & Cloud Computing (FIAP)**
+**Opção Escolhida:** **Opção 1: ACR + ACI (Solução Containerizada Completa: App + Banco de Dados)**
 
-Este repositório contém a entrega oficial do **Sprint 1** para a disciplina de **DevOps Tools & Cloud Computing** (FIAP 2026). O projeto apresenta a infraestrutura conteinerizada e provisionada na nuvem da Microsoft Azure para a solução **Clyvo Vet**, o super app de gestão preditiva e longevidade pet desenvolvido em Java Advanced.
+[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Azure](https://img.shields.io/badge/Microsoft%20Azure-ACR%20%2B%20ACI-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Oracle Database](https://img.shields.io/badge/Oracle-Database%2023c%20Free-F80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/database/)
 
 ---
 
-## 👥 Integrantes
+## 👥 Integrantes do Grupo
 - **Vitória Rodrigues Martins** - RM565160
 - **Augusto Bonomo Júnior** - RM565155
 - **Thomas Fontes** - RM562254
@@ -13,271 +19,164 @@ Este repositório contém a entrega oficial do **Sprint 1** para a disciplina de
 
 ---
 
-## 🚀 Benefícios para o Negócio (Business Benefits)
+## 📖 1. Descrição da Solução
+O **Clyvo Vet** é uma plataforma corporativa em nuvem desenvolvida em **Java Spring Boot 3** focada na **medicina veterinária preventiva e predição de longevidade pet**. 
 
-A modernização da infraestrutura do Clyvo Vet utilizando **Docker, Docker Compose e Microsoft Azure** traz benefícios estratégicos e tangíveis ao negócio da clínica e dos tutores:
-
-1. **Alta Disponibilidade (High Availability):** O provisionamento em nuvem garante que o sistema de monitoramento preditivo de pets esteja online 24/7, permitindo que tutores acessem alertas críticos a qualquer momento e de qualquer lugar.
-2. **Escalabilidade Elástica:** A arquitetura baseada em contêineres permite que a aplicação escale horizontalmente de forma rápida durante horários de pico (ex: campanhas nacionais de vacinação).
-3. **Consistência de Ambientes (Immutable Infrastructure):** A conteinerização com Docker elimina o famoso problema "funciona na minha máquina". O mesmo contêiner testado localmente roda de forma idêntica no servidor de produção Azure.
-4. **Isolamento de Segurança:** A aplicação executa isolada em sua própria rede interna do Docker (`clyvo_network`) e roda sob um usuário sem privilégios administrativos (`appuser`), minimizando riscos de segurança de invasão no host.
-5. **Persistência de Dados Confiável:** A utilização de volumes nomeados garante que o histórico de saúde, dados clínicos e predições não sejam perdidos caso o contêiner do banco seja reiniciado ou atualizado.
+A solução monitora o ciclo biológico de cães e gatos, correlacionando predisposições genéticas das raças com sinais vitais aferidos e rotina dos tutores. O sistema calcula um escore preditivo de longevidade e emite alertas precoces para mitigar patologias crônicas antes que se tornem emergências clínicas graves.
 
 ---
 
-## 🗺️ Desenho Macro da Arquitetura na Nuvem
+## 💡 2. Descrição dos Benefícios para o Negócio
+A modernização da infraestrutura do Clyvo Vet com **conteinerização total (Docker), Azure Container Registry (ACR) e Azure Container Instances (ACI)** proporciona vantagens competitivas tangíveis:
 
-Abaixo está o fluxo detalhado da solução implementada na **Microsoft Azure** utilizando **Docker Compose** para isolamento e orquestração local:
+1. **Alta Disponibilidade e Resiliência Serverless:** Ao utilizar contêineres gerenciados pelo Azure (ACI), eliminamos a sobrecarga de gerenciar sistemas operacionais de VMs, garantindo que o sistema de monitoramento preditivo opere 24/7.
+2. **Escalabilidade Elástica sob Demanda:** A capacidade de instanciar contêineres rapidamente no ACI permite atender picos sazonais (campanhas de vacinação, surtos sazonais de ectoparasitas) sem desperdício de recursos ociosos.
+3. **Imutabilidade e Segurança (Zero Admin / Non-Root):** O container da aplicação roda sob usuário estritamente sem privilégios administrativos (`USER appuser`), atendendo ao requisito de segurança 8.2 da Sprint.
+4. **Governança e Entrega Ágil via IaC (Azure CLI):** 100% dos recursos são criados através de scripts idempotentes em Azure CLI, garantindo reprodutibilidade idêntica em qualquer ambiente.
+5. **Persistência Confiável de Dados:** O banco de dados Oracle conteinerizado armazena com integridade referencial todo o histórico clínico e dados dos tutores e pacientes.
 
-![Diagrama de Arquitetura Azure Clyvo Vet](clyvo_devops_architecture.png)
+---
 
-### Diagrama Interativo (Mermaid)
+## 🗺️ 3. Desenho da Arquitetura em Nuvem (Opção 1: ACR + ACI)
+
 ```mermaid
 graph TD
-    subgraph Cliente["Dispositivos do Usuário (Tutores & Clínicas)"]
-        User["📱 Tutor App / Web App"]
+    subgraph Internet["Clientes & Dispositivos"]
+        User["👤 Tutor / Veterinário\n(Browser / cURL / Postman)"]
     end
 
-    subgraph AzureCloud["Microsoft Azure - Nuvem Pública"]
-        subgraph RG["Resource Group: rg-clyvo-devops"]
-            subgraph VM["Máquina Virtual Linux (Ubuntu 22.04 LTS)"]
-                subgraph NSG["Network Security Group (NSG)"]
-                    Port22["Porta 22: Acesso SSH (Admin)"]
-                    Port8080["Porta 8080: Acesso Público à API"]
-                    Port1521["Porta 1521: Acesso Restrito (DB)"]
-                end
-
-                subgraph DockerEngine["Docker Engine Containerized Host"]
-                    subgraph Network["Docker Bridge Network: clyvo_network"]
-                        API["☕ Spring Boot App (clyvo_api)\n[Roda como: appuser (Sem root)]"]
-                        DB["🛢️ Oracle XE 21c (clyvo_db)\n[Imagem: gvenzl/oracle-xe]"]
-                    end
-                    
-                    subgraph Storage["Persistência Mapeada (Azure VM Storage)"]
-                        Vol["💾 Volume Nomeado: oracle_data_volume\n[Caminho: /opt/oracle/oradata]"]
-                    end
+    subgraph Azure["Microsoft Azure - Nuvem Pública"]
+        subgraph RG["Resource Group: rg-clyvo-devops-sprint3 (East US)"]
+            
+            subgraph ACR_Section["Azure Container Registry (ACR)"]
+                ACR["📦 acrclyvovet.azurecr.io\n(Repositório Privado de Imagens)"]
+            end
+            
+            subgraph ACI_Section["Azure Container Instances (ACI) - Container Group"]
+                subgraph ContainerGroup["cg-clyvo-vet (Rede Compartilhada Localhost)"]
+                    App["☕ clyvo-api:v1\n[Spring Boot 3 - Porta 8080]\n(Usuário Não-Root: appuser)"]
+                    DB["🛢️ clyvo-db\n[Oracle Database 23c Free - Porta 1521]"]
                 end
             end
         end
     end
 
-    %% Relações e Fluxos
-    User -->|HTTP Requests| Port8080
-    Port8080 -->|Redireciona| API
-    API -->|Consome/Escreve| DB
-    DB <---> Vol
-    
-    style User fill:#FFDD67,stroke:#333,stroke-width:2px
-    style VM fill:#EBF6FF,stroke:#0078D4,stroke-width:2px
-    style DockerEngine fill:#EBFBF5,stroke:#107C41,stroke-width:2px
-    style API fill:#DDF0FF,stroke:#0078D4,stroke-width:2px
-    style DB fill:#FFE5E5,stroke:#A80000,stroke-width:2px
-    style Vol fill:#FFF1CC,stroke:#C88F00,stroke-width:2px
+    %% Fluxos de Conexão
+    User -->|HTTP Requests / Porta 8080| App
+    ACR -.->|Pull da Imagem Autenticada| App
+    App -->|JDBC Connection: localhost:1521/FREEPDB1| DB
+
+    style User fill:#FEF3C7,stroke:#D97706,stroke-width:2px
+    style RG fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px
+    style ACR fill:#F0FDF4,stroke:#16A34A,stroke-width:2px
+    style App fill:#DBEAFE,stroke:#2563EB,stroke-width:2px
+    style DB fill:#FEE2E2,stroke:#DC2626,stroke-width:2px
 ```
 
 ---
 
-## 🛠️ Tecnologias Utilizadas na Infraestrutura
-*   **Docker & Docker Compose**: Empacotamento, orquestração e gerenciamento de microsserviços.
-*   **Microsoft Azure VM (Ubuntu 22.04 LTS)**: Servidor de aplicação em nuvem.
-*   **Azure CLI (Command Line Interface)**: Criação da infraestrutura como código (IaC).
-*   **Oracle XE 21c**: Banco de dados relacional oficial.
-*   **Maven + Eclipse Temurin JDK 21**: Stack de compilação da API.
+## 🗄️ 4. Banco de Dados na Nuvem & Tabelas CORE
+
+O banco de dados relacional oficial utilizado é o **Oracle Database 23c Free**, totalmente conteinerizado na nuvem (sem uso de H2, em conformidade com os itens 3.1 e 3.2).
+
+O arquivo [`script_bd.sql`](script_bd.sql) isolado na raiz do projeto contém todo o DDL com chaves primárias, chaves estrangeiras e comentários detalhados nas tabelas e colunas.
+
+### Tabelas CORE da Solução (Relacionamento 1:N)
+1. **`T_TUTOR`** (Chave Primária: `cpf`): Cadastro dos tutores responsáveis pelos animais.
+2. **`T_PET`** (Chave Primária: `id`, Chave Estrangeira: `tutor_cpf` referenciando `T_TUTOR`): Cadastro dos pets pacientes sob monitoramento preventivo.
 
 ---
 
-## 🔗 Endpoints Principais (Rotas para Teste do CRUD)
+## 🔄 5. Demonstração do CRUD CORE Completo (T_TUTOR & T_PET)
 
-Para validar a integridade e conformidade da persistência do CRUD, você pode utilizar os seguintes endpoints:
+A API disponibiliza endpoints REST com documentação interativa Swagger/OpenAPI em `/swagger-ui.html`.
 
-| Método | Endpoint | Descrição | Corpo da Requisição (JSON Exemplo) |
+### Rotas Disponíveis:
+| Operação | Método | Endpoint | Descrição |
 | :--- | :--- | :--- | :--- |
-| **POST** | `/api/pets` | Cria um novo pet (Gera cabeçalho `Location` com a URI de retorno) | `{"nome": "Rex", "dataNascimento": "2020-05-15", "peso": 12.5}` |
-| **GET** | `/api/pets` | Retorna lista paginada de pets | *(Sem Corpo)* |
-| **GET** | `/api/pets/{id}` | Busca um pet por ID e calcula **Insights da IA Preditiva** baseados na raça | *(Sem Corpo)* |
-| **PUT** | `/api/pets/{id}` | Atualiza os dados cadastrais de um pet | `{"nome": "Rex Silva", "dataNascimento": "2020-05-15", "peso": 13.0}` |
-| **DELETE**| `/api/pets/{id}` | Exclui fisicamente o pet do banco de dados | *(Sem Corpo)* |
+| **CREATE** | `POST` | `/api/tutores` | Cadastra novo tutor responsável |
+| **CREATE** | `POST` | `/api/pets` | Cadastra novo pet vinculado ao tutor |
+| **READ** | `GET` | `/api/tutores` | Lista tutores cadastrados |
+| **READ** | `GET` | `/api/pets` | Lista pets cadastrados |
+| **READ** | `GET` | `/api/pets/{id}` | Busca pet por ID com HATEOAS |
+| **UPDATE** | `PUT` | `/api/pets/{id}` | Atualiza biometria e status do pet |
+| **DELETE** | `DELETE`| `/api/pets/{id}` | Exclui fisicamente o pet do banco |
 
 ---
 
-## 📋 Como Instalar e Executar a Solução (How-to)
+## 🚀 6. Como Executar e Fazer Deploy (Passo a Passo)
 
-### Opção A: Execução em Nuvem (Microsoft Azure via Script CLI)
-
-Esta é a opção recomendada e automatizada. Garanta que você tenha o [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) instalado e esteja logado (`az login`).
-
-1. **Baixe o arquivo de automação do repositório:**
-   ```bash
-   curl -O https://raw.githubusercontent.com/Gabriel-Maciel06/ChDevops/main/setup_azure.sh
-   chmod +x setup_azure.sh
-   ```
-
-2. **Execute o script de provisionamento:**
-   ```bash
-   ./setup_azure.sh
-   ```
-   *O script criará o Grupo de Recursos, a VM, liberará os firewalls e instalará o Docker e o Docker Compose de forma silenciosa via cloud-init.*
-
-3. **Conecte-se na VM criada (o IP público será exibido ao final do script):**
-   ```bash
-   ssh azureuser@<IP_PUBLICO_DA_VM>
-   ```
-
-4. **Dentro da VM, clone o repositório e suba os contêineres:**
-   ```bash
-   git clone https://github.com/Gabriel-Maciel06/ChDevops.git
-   cd ChDevops
-   
-   # Inicie os contêineres em background (Exigência DevOps 2.1)
-   sudo docker compose up -d
-   ```
-
-5. **Acompanhe a inicialização (Healthcheck):**
-   ```bash
-   sudo docker compose ps
-   ```
-
-### Opção B: Execução Local (Docker Compose)
-
-Caso queira testar a conteinerização localmente:
-
-1. Certifique-se de ter o Docker e Docker Compose instalados em sua máquina.
-2. Clone o repositório e navegue até a pasta raiz:
-   ```bash
-   git clone https://github.com/Gabriel-Maciel06/ChDevops.git
-   cd ChDevops
-   ```
-3. Suba o ambiente completo com um único comando:
-   ```bash
-   docker compose up -d
-   ```
-4. A API estará acessível em `http://localhost:8080/swagger-ui.html`
+### 6.1 Pré-requisitos
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) instalado
+- [Docker](https://docs.docker.com/get-docker/) instalado
+- Login ativo no Azure: `az login`
 
 ---
 
-## 📸 Evidências de Execução (Prints)
+### 6.2 Deploy Automatizado na Nuvem (100% Azure CLI)
 
-Para comprovar a execução fim a fim da infraestrutura, deploy e testes via Postman, confira as evidências abaixo capturadas durante a implementação:
-
-<details>
-<summary>Clique para expandir e ver os prints</summary>
-
-![Evidência 1](assets/print-1.png)
-![Evidência 2](assets/print-2.png)
-![Evidência 3](assets/print-3.png)
-![Evidência 4](assets/print-4.png)
-![Evidência 5](assets/print-5.png)
-![Evidência 6](assets/print-6.png)
-![Evidência 7](assets/print-7.png)
-![Evidência 8](assets/print-8.png)
-
-</details>
-
----
-
-## 📝 Arquivos de Configuração de DevOps
-
-### 1. Dockerfile (`projects/clyvo-api/Dockerfile`)
-
-```dockerfile
-# Estágio de Build (Compilação)
-FROM maven:3.9-eclipse-temurin-21-alpine AS builder
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
-COPY src ./src
-RUN mvn clean package -DskipTests
-
-# Estágio de Execução (Run)
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
-
-# Criar grupo e usuário sem privilégios (Exigência DevOps 2.2)
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-# Copiar o jar gerado do estágio de build
-COPY --from=builder /app/target/*.jar app.jar
-
-# Mudar para o usuário não-root
-USER appuser
-
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
-```
-
-### 2. Docker Compose (`projects/clyvo-api/docker-compose.yml`)
-
-```yaml
-version: '3.8'
-
-services:
-  db:
-    image: gvenzl/oracle-xe:21-slim
-    container_name: clyvo_db
-    environment:
-      - ORACLE_PASSWORD=060205
-      - APP_USER=RM562795
-      - APP_USER_PASSWORD=060205
-    ports:
-      - "1521:1521"
-    volumes:
-      - oracle_data:/opt/oracle/oradata
-      - ./db_setup.sql:/container-entrypoint-initdb.d/01_db_setup.sql
-      - ./db_dml.sql:/container-entrypoint-initdb.d/02_db_dml.sql
-    networks:
-      - clyvo_network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "healthcheck.sh"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  api:
-    build: .
-    container_name: clyvo_api
-    depends_on:
-      db:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
-    environment:
-      - DB_URL=jdbc:oracle:thin:@db:1521:XE
-      - DB_USER=RM562795
-      - DB_PASSWORD=060205
-    networks:
-      - clyvo_network
-    restart: unless-stopped
-
-volumes:
-  oracle_data:
-    name: oracle_data_volume # Exigência DevOps 2.3: Volume nomeado
-
-networks:
-  clyvo_network:
-    driver: bridge
-```
-
-### 3. Script Azure CLI (`setup_azure.sh`)
+O provisionamento completo é realizado com um único script shell idempotente:
 
 ```bash
-#!/bin/bash
-RESOURCE_GROUP="rg-clyvo-devops"
-LOCATION="eastus"
-VM_NAME="vm-clyvo-app"
-IMAGE="Ubuntu2204"
-ADMIN_USER="azureuser"
+# 1. Clone o repositório
+git clone https://github.com/Gabriel-Maciel06/ChDevops.git
+cd ChDevops
 
-az group create --name $RESOURCE_GROUP --location $LOCATION
-
-az vm create \
-  --resource-group $RESOURCE_GROUP \
-  --name $VM_NAME \
-  --image $IMAGE \
-  --admin-username $ADMIN_USER \
-  --generate-ssh-keys \
-  --custom-data cloud-init.txt
-
-az vm open-port --resource-group $RESOURCE_GROUP --name $VM_NAME --port 8080 --priority 1001
-az vm open-port --resource-group $RESOURCE_GROUP --name $VM_NAME --port 1521 --priority 1002
+# 2. Torne executável e rode o script de deploy
+chmod +x deploy_azure_acr_aci.sh
+./deploy_azure_acr_aci.sh
 ```
+
+#### Comandos Azure CLI Executados Internamente:
+```bash
+# 1. Criação do Grupo de Recursos
+az group create --name rg-clyvo-devops-sprint3 --location eastus
+
+# 2. Criação do Azure Container Registry (ACR)
+az acr create --resource-group rg-clyvo-devops-sprint3 --name acrclyvovet --sku Basic --admin-enabled true
+
+# 3. Build da Imagem no ACR Tasks
+az acr build --registry acrclyvovet --image clyvo-api:v1 .
+
+# 4. Criação do Azure Container Instance (ACI)
+az container create \
+  --resource-group rg-clyvo-devops-sprint3 \
+  --name cg-clyvo-vet \
+  --image acrclyvovet.azurecr.io/clyvo-api:v1 \
+  --dns-name-label clyvo-vet-api \
+  --ports 8080 1521 \
+  --cpu 2 --memory 4
+```
+
+---
+
+### 6.3 Execução dos Testes Automatizados do CRUD
+Para testar todas as operações do CRUD contra a nuvem, execute:
+```bash
+./testes_crud_core.sh http://<IP_DO_ACI>:8080
+```
+
+---
+
+### 6.4 Limpeza de Recursos (Destruição)
+Para desalocar os recursos e evitar consumo desnecessário de créditos Azure for Students:
+```bash
+./destroy_azure.sh
+```
+
+---
+
+## 🔒 7. Segurança & Regras de Não-Root
+
+O arquivo `Dockerfile` foi estruturado em **Multi-Stage Build**:
+1. **Builder Stage:** Compila o código Java com Maven 3.9 e Eclipse Temurin 21.
+2. **Runner Stage:** Imagem enxuta baseada em Alpine Linux, criando o grupo `appgroup` e o usuário `appuser` (sem privilégios administrativos), executando a instrução `USER appuser` antes de expor a porta 8080.
+
+---
+
+## 📦 8. Entregáveis da Sprint
+- [x] **Código-fonte:** Repositório público no GitHub (`https://github.com/Gabriel-Maciel06/ChDevops`).
+- [x] **DDL das Tabelas:** [`script_bd.sql`](script_bd.sql) com tabelas CORE comentadas.
+- [x] **Scripts de Build e Deploy:** `deploy_azure_acr_aci.sh`, `destroy_azure.sh`, `Dockerfile`, `docker-compose.yml`.
+- [x] **Roteiro de Gravação do Vídeo:** [`ROTEIRO_GRAVACAO_DEVOPS_SPRINT3.md`](ROTEIRO_GRAVACAO_DEVOPS_SPRINT3.md).
+- [x] **PDF de Entrega Oficial:** `Entrega_DevOps_Sprint3_FIAP.pdf` contendo exclusivamente nomes, RMs e links.

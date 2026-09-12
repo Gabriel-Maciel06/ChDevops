@@ -1,2 +1,30 @@
+# IDE
 .idea/
+*.iml
 ChDevops/
+
+# ==============================================================================
+# SEGURANÇA: Arquivos que NUNCA devem ir para o repositório
+# ==============================================================================
+# Arquivo gerado pelo deploy com credenciais em texto claro (pós-envsubst)
+azure-aci-deployment.yaml
+
+# Variáveis de ambiente locais
+.env
+.env.*
+*.env
+
+# ==============================================================================
+# Java / Maven
+# ==============================================================================
+target/
+*.jar
+*.war
+*.class
+*.log
+
+# ==============================================================================
+# Sistema Operacional
+# ==============================================================================
+.DS_Store
+Thumbs.db

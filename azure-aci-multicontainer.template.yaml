@@ -4,14 +4,15 @@ name: ${CONTAINER_GROUP_NAME}
 type: Microsoft.ContainerInstance/containerGroups
 properties:
   osType: Linux
+  restartPolicy: Always
   ipAddress:
     type: Public
     dnsNameLabel: ${DNS_LABEL}
     ports:
       - protocol: tcp
         port: 8080
-      - protocol: tcp
-        port: 1521
+        # NOTA: porta 1521 (Oracle) NÃO exposta publicamente.
+        # A comunicação entre clyvo-api e clyvo-db ocorre via localhost compartilhado no Container Group.
   imageRegistryCredentials:
     - server: ${ACR_LOGIN_SERVER}
       username: ${ACR_USERNAME}
@@ -19,7 +20,7 @@ properties:
   containers:
     - name: clyvo-db
       properties:
-        image: gvenzl/oracle-free:23-slim-faststart
+        image: ${ACR_LOGIN_SERVER}/oracle-free:23-slim-faststart
         resources:
           requests:
             cpu: 1.5

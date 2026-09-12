@@ -54,8 +54,14 @@ if [ -z "$KV_EXISTING" ]; then
     sleep 10  # Aguardar propagação de RBAC
   fi
   # Armazenar secrets sensíveis no Key Vault
-  az keyvault secret set --vault-name "$KEY_VAULT_NAME" --name "DB-USER"     --value "${DB_USER:-RM562795}"             > /dev/null
-  az keyvault secret set --vault-name "$KEY_VAULT_NAME" --name "DB-PASSWORD" --value "${DB_PASSWORD:-FiapDevOps2026#}"  > /dev/null
+  # Validar que as variáveis de ambiente foram definidas explicitamente (sem fallback!)
+  if [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ]; then
+    echo "❌ ERRO: Defina DB_USER e DB_PASSWORD como variáveis de ambiente antes de executar este script."
+    echo "   Exemplo: export DB_USER=RM562795 && export DB_PASSWORD='SuaSenha'"
+    exit 1
+  fi
+  az keyvault secret set --vault-name "$KEY_VAULT_NAME" --name "DB-USER"     --value "$DB_USER"     > /dev/null
+  az keyvault secret set --vault-name "$KEY_VAULT_NAME" --name "DB-PASSWORD" --value "$DB_PASSWORD" > /dev/null
   az keyvault secret set --vault-name "$KEY_VAULT_NAME" --name "DB-URL"      --value "jdbc:oracle:thin:@localhost:1521/FREEPDB1" > /dev/null
   echo "     ✅ Secrets armazenados no Key Vault com segurança."
 else

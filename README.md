@@ -39,6 +39,8 @@ A modernização da infraestrutura do Clyvo Vet com **conteinerização total (D
 
 ## 🗺️ 3. Desenho da Arquitetura em Nuvem (Opção 1: ACR + ACI)
 
+![Diagrama de Arquitetura em Nuvem - Azure ACR + ACI](clyvo_devops_architecture.png)
+
 ```mermaid
 graph TD
     subgraph Internet["Clientes & Dispositivos"]

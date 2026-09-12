@@ -53,25 +53,28 @@ az acr build \
   --image "$IMAGE_APP_NAME" \
   .
 
-# 4. Criação do Azure Container Instance (ACI) - Solução Completa Containerizada
-# O ACI executa em um Container Group contendo a Aplicação e o Banco de Dados
-echo "[4/6] Provisionando Azure Container Instances (App + Banco Containerizado)..."
+# 4. Criação do Azure Container Instance (ACI) - Solução Completa Containerizada (App + Oracle DB)
+# O ACI executa em um Container Group contendo a Aplicação (não-root) e o Banco de Dados em rede local compartilhada
+echo "[4/6] Provisionando Azure Container Instances Multi-Container (App + Banco Containerizado)..."
 
+# Gerar arquivo de configuração ACI com variáveis substituídas
+export LOCATION
+export CONTAINER_GROUP_NAME
+export DNS_LABEL
+export ACR_LOGIN_SERVER
+export ACR_USERNAME
+export ACR_PASSWORD
+export IMAGE_APP_NAME
+export DB_USER
+export DB_PASSWORD
+
+# Substitui as variáveis no template YAML gerando o arquivo final de deploy
+envsubst < azure-aci-multicontainer.template.yaml > azure-aci-deployment.yaml
+
+# Provisiona o Container Group via Azure CLI (Atendendo ao item 8.1 e 8.4)
 az container create \
   --resource-group "$RESOURCE_GROUP" \
-  --name "$CONTAINER_GROUP_NAME" \
-  --image "$ACR_LOGIN_SERVER/$IMAGE_APP_NAME" \
-  --registry-login-server "$ACR_LOGIN_SERVER" \
-  --registry-username "$ACR_USERNAME" \
-  --registry-password "$ACR_PASSWORD" \
-  --dns-name-label "$DNS_LABEL" \
-  --ports 8080 1521 \
-  --cpu 2 \
-  --memory 4 \
-  --environment-variables \
-      DB_URL="jdbc:oracle:thin:@localhost:1521/FREEPDB1" \
-      DB_USER="$DB_USER" \
-      DB_PASSWORD="$DB_PASSWORD" \
+  --file azure-aci-deployment.yaml \
   -o table
 
 # 5. Obtenção do Endereço Público e Teste de Conectividade

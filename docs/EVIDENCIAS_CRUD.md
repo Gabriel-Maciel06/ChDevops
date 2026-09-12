@@ -1,214 +1,151 @@
-# 📋 Evidências de Persistência de Dados — CRUD Completo
+# 📋 Evidências de Persistência - CRUD Completo (App + Banco na Nuvem)
 
-**Projeto:** Clyvo Vet API  
-**Sprint:** 3ª Sprint — DevOps Tools & Cloud Computing  
-**Ambiente:** Azure Container Instances (ACI) — East US  
-**URL Base:** `http://clyvo-vet-api-29514.eastus.azurecontainer.io:8080`  
-**Data da evidência:** 2026-09-12  
+**Projeto:** Clyvo Vet API
+**Sprint:** 3ª Sprint - DevOps Tools & Cloud Computing (Opção 1: ACR + ACI)
+**Ambiente:** Azure Container Instances `cg-clyvo-vet` (East US) - containers `clyvo-api` + `clyvo-db`
+**URL Base:** `http://clyvo-vet-api-13814.eastus.azurecontainer.io:8080`
+**Data:** 2026-09-12
+
+Cada operação da API foi seguida de um `SELECT` executado **dentro do container Oracle no ACI** com
+`./consultar_banco_nuvem.sh` (a porta 1521 não é pública). Saídas reproduzidas sem edição.
 
 ---
 
-> ⚠️ **Nota de versão:** estas evidências foram coletadas no deploy inicial (v1) de 12/09/2026. Nessa versão o campo `statusLongevidade` ainda não era persistido (aparece `null`) e o teste cobria apenas parte do CRUD de tutores. A versão atual do código persiste o parecer, expõe `PUT`/`DELETE` de tutores e o script `testes_crud_core.sh` cobre as duas tabelas. As evidências definitivas, com SELECT no banco após cada operação (`consultar_banco_nuvem.sh`), estão no vídeo da entrega.
+## 0. Estado inicial do banco (logo após o deploy)
 
-## ✅ CRUD-1 — CREATE (POST) — Tutor
+Tabelas criadas pelo `script_bd.sql` embutido na imagem `clyvo-db` e carga inicial de raças:
 
-**Requisição:**
-```http
-POST /api/tutores
-Content-Type: application/json
+```
+$ ./consultar_banco_nuvem.sh "SELECT id, nome, expectativa_vida FROM T_RACA"
+        ID NOME                      EXPECTATIVA_VIDA
+---------- ------------------------- ----------------
+         1 Golden Retriever                        12
+         2 Bulldog Francês                         10
+         3 Gato Persa                              14
+3 rows selected.
 
-{
-  "cpf": "99988877766",
-  "nome": "Thomas Fontes",
-  "telefone": "(11) 97777-0001",
-  "email": "thomas.fontes@clyvovet.com",
-  "quantidadePets": 1
-}
+$ ./consultar_banco_nuvem.sh "SELECT COUNT(*) AS tutores FROM T_TUTOR"
+   TUTORES
+----------
+         0
 ```
 
-**Resposta `201 Created`:**
+---
+
+## 1. CREATE - `POST /api/tutores` (2 tutores) e `POST /api/pets` (2 pets)
+
+```http
+POST /api/tutores  →  201 Created
+{"cpf":"11122233344","nome":"Gabriel Maciel","telefone":"(11) 98765-4321","email":"gabriel.maciel@clyvovet.com","quantidadePets":1}
+
+POST /api/tutores  →  201 Created
+{"cpf":"55566677788","nome":"Vitória Rodrigues","telefone":"(11) 91234-5678","email":"vitoria.rodrigues@clyvovet.com","quantidadePets":1}
+
+POST /api/pets  →  201 Created
+{"id":1,"nome":"Thor","dataNascimento":"2020-04-10","peso":34.5,"racaId":1,"racaNome":"Golden Retriever","tutorCpf":"11122233344","statusLongevidade":"Fase adulta madura. Monitoramento preventivo semestral."}
+
+POST /api/pets  →  201 Created
+{"id":2,"nome":"Luna","dataNascimento":"2017-08-20","peso":12.0,"racaId":2,"racaNome":"Bulldog Francês","tutorCpf":"55566677788","statusLongevidade":"Fase sênior. Check-up cardiorrespiratório trimestral."}
+```
+
+**Evidência no banco:**
+```
+$ ./consultar_banco_nuvem.sh "SELECT cpf, nome, telefone, qtd_pets FROM T_TUTOR ORDER BY cpf"
+CPF            NOME                      TELEFONE           QTD_PETS
+-------------- ------------------------- ---------------- ----------
+11122233344    Gabriel Maciel            (11) 98765-4321           1
+55566677788    Vitória Rodrigues         (11) 91234-5678           1
+2 rows selected.
+
+$ ./consultar_banco_nuvem.sh "SELECT id, nome, peso, raca_id, tutor_cpf FROM T_PET ORDER BY id"
+        ID NOME                            PESO    RACA_ID TUTOR_CPF
+---------- ------------------------- ---------- ---------- --------------
+         1 Thor                            34.5          1 11122233344
+         2 Luna                              12          2 55566677788
+2 rows selected.
+```
+> ✔️ 2 linhas significativas em `T_TUTOR` e 2 em `T_PET`, com FK `tutor_cpf` → `T_TUTOR`.
+
+---
+
+## 2. READ - `GET /api/tutores`, `GET /api/pets/2`, `GET /api/tutores/{cpf}/pets`
+
 ```json
-{
-  "cpf": "99988877766",
-  "nome": "Thomas Fontes",
-  "telefone": "(11) 97777-0001",
-  "email": "thomas.fontes@clyvovet.com",
-  "quantidadePets": 1
-}
+GET /api/tutores  →  200 OK  (totalElements: 2)
+{"content":[
+  {"cpf":"11122233344","nome":"Gabriel Maciel","telefone":"(11) 98765-4321","email":"gabriel.maciel@clyvovet.com","quantidadePets":1},
+  {"cpf":"55566677788","nome":"Vitória Rodrigues","telefone":"(11) 91234-5678","email":"vitoria.rodrigues@clyvovet.com","quantidadePets":1}
+], "totalElements":2, "totalPages":1}
+
+GET /api/pets/2  →  200 OK  (HATEOAS)
+{"id":2,"nome":"Luna","dataNascimento":"2017-08-20","peso":12.0,"racaId":2,"racaNome":"Bulldog Francês",
+ "tutorCpf":"55566677788","statusLongevidade":"Fase sênior. Check-up cardiorrespiratório trimestral.",
+ "_links":{"self":{"href":".../api/pets/2"},"lista-pets":{"href":".../api/pets"}}}
+
+GET /api/tutores/11122233344/pets  →  200 OK
+[{"id":1,"nome":"Thor","peso":34.5,"raca":{"id":1,"nome":"Golden Retriever","propensaoDoenca":"Displasia coxofemoral e cardiomiopatia", ...},
+  "tutor":{"cpf":"11122233344","nome":"Gabriel Maciel", ...},"statusLongevidade":"Fase adulta madura. Monitoramento preventivo semestral."}]
 ```
-> ✔️ **Dado persistido no Oracle FREEPDB1 — tabela `T_TUTOR`**
+> ✔️ Consulta paginada, por id e pelo relacionamento tutor → pets.
 
 ---
 
-## ✅ CRUD-2 — CREATE (POST) — Pet
+## 3. UPDATE - `PUT /api/pets/1` e `PUT /api/tutores/55566677788`
 
-**Requisição:**
 ```http
-POST /api/pets
-Content-Type: application/json
+PUT /api/pets/1  →  200 OK   (peso 34.5 → 33.8, novo parecer)
+{"id":1,"nome":"Thor","dataNascimento":"2020-04-10","peso":33.8,"racaId":1,"racaNome":"Golden Retriever","tutorCpf":"11122233344","statusLongevidade":"Peso otimizado. Longevidade estimada em 13 anos."}
 
-{
-  "nome": "Bolt",
-  "dataNascimento": "2021-06-15",
-  "peso": 28.3,
-  "racaId": 1,
-  "tutorCpf": "99988877766",
-  "statusLongevidade": "Adulto jovem. Longevidade estimada 12 anos."
-}
+PUT /api/tutores/55566677788  →  200 OK   (nome, telefone e qtd_pets)
+{"cpf":"55566677788","nome":"Vitória Rodrigues Martins","telefone":"(11) 99999-0002","email":"vitoria.rodrigues@clyvovet.com","quantidadePets":2}
 ```
 
-**Resposta `201 Created`:**
-```json
-{
-  "id": 3,
-  "nome": "Bolt",
-  "dataNascimento": "2021-06-15",
-  "peso": 28.3,
-  "tutorCpf": "99988877766",
-  "statusLongevidade": null
-}
+**Evidência no banco:**
 ```
-> ✔️ **Pet criado com ID auto-gerado = 3 — tabela `T_PET`**
+$ ./consultar_banco_nuvem.sh "SELECT id, nome, peso, status_longevidade FROM T_PET WHERE id = 1"
+        ID NOME                            PESO STATUS_LONGEVIDADE
+---------- ------------------------- ---------- ---------------------------------------------
+         1 Thor                            33.8 Peso otimizado. Longevidade estimada em 13 anos.
+1 row selected.
+
+$ ./consultar_banco_nuvem.sh "SELECT cpf, nome, telefone, qtd_pets FROM T_TUTOR WHERE cpf = '55566677788'"
+CPF            NOME                      TELEFONE           QTD_PETS
+-------------- ------------------------- ---------------- ----------
+55566677788    Vitória Rodrigues Martins (11) 99999-0002           2
+1 row selected.
+```
+> ✔️ Alterações persistidas nas duas tabelas.
 
 ---
 
-## ✅ CRUD-3 — READ ALL (GET) — Tutores
+## 4. DELETE - `DELETE /api/pets/2` e `DELETE /api/tutores/55566677788`
 
-**Requisição:**
-```http
-GET /api/tutores
+```
+DELETE /api/pets/2               →  HTTP 204
+DELETE /api/tutores/55566677788  →  HTTP 204
 ```
 
-**Resposta `200 OK` — 3 tutores persistidos no banco:**
-```json
-{
-  "content": [
-    {
-      "cpf": "11122233344",
-      "nome": "Gabriel Maciel",
-      "telefone": "(11) 98765-4321",
-      "email": "gabriel.maciel@clyvovet.com",
-      "quantidadePets": 1
-    },
-    {
-      "cpf": "55566677788",
-      "nome": "Vitória Rodrigues",
-      "telefone": "(11) 91234-5678",
-      "email": "vitoria.rodrigues@clyvovet.com",
-      "quantidadePets": 2
-    },
-    {
-      "cpf": "99988877766",
-      "nome": "Thomas Fontes",
-      "telefone": "(11) 97777-0001",
-      "email": "thomas.fontes@clyvovet.com",
-      "quantidadePets": 1
-    }
-  ],
-  "totalElements": 3,
-  "totalPages": 1
-}
+**Evidência no banco:**
 ```
-> ✔️ **3 registros persistidos e recuperados com paginação**
+$ ./consultar_banco_nuvem.sh "SELECT id, nome, tutor_cpf FROM T_PET ORDER BY id"
+        ID NOME                      TUTOR_CPF
+---------- ------------------------- --------------
+         1 Thor                      11122233344
+1 row selected.
 
----
-
-## ✅ CRUD-4 — READ ALL (GET) — Pets
-
-**Requisição:**
-```http
-GET /api/pets
+$ ./consultar_banco_nuvem.sh "SELECT cpf, nome FROM T_TUTOR ORDER BY cpf"
+CPF            NOME
+-------------- -------------------------
+11122233344    Gabriel Maciel
+1 row selected.
 ```
 
-**Resposta `200 OK` — 2 pets persistidos no banco:**
-```json
-{
-  "content": [
-    {
-      "id": 1,
-      "nome": "Thor",
-      "dataNascimento": "2020-04-10",
-      "peso": 33.8,
-      "tutorCpf": "11122233344",
-      "statusLongevidade": null
-    },
-    {
-      "id": 3,
-      "nome": "Bolt",
-      "dataNascimento": "2021-06-15",
-      "peso": 28.3,
-      "tutorCpf": "99988877766",
-      "statusLongevidade": null
-    }
-  ],
-  "totalElements": 2,
-  "totalPages": 1
-}
+**Confirmação pela API:**
 ```
-> ✔️ **2 pets persistidos e recuperados (id=2 foi deletado anteriormente)**
-
----
-
-## ✅ CRUD-5 — UPDATE (PUT) — Atualização de Pet
-
-**Requisição:**
-```http
-PUT /api/pets/3
-Content-Type: application/json
-
-{
-  "nome": "Bolt",
-  "dataNascimento": "2021-06-15",
-  "peso": 26.0,
-  "racaId": 1,
-  "tutorCpf": "99988877766",
-  "statusLongevidade": "Peso ajustado com dieta. Longevidade estimada 13 anos."
-}
+GET /api/pets/2               →  HTTP 404
+GET /api/tutores/55566677788  →  HTTP 404
 ```
-
-**Resposta `200 OK` — peso atualizado de 28.3 → 26.0:**
-```json
-{
-  "id": 3,
-  "nome": "Bolt",
-  "dataNascimento": "2021-06-15",
-  "peso": 26.0,
-  "tutorCpf": "99988877766",
-  "statusLongevidade": null
-}
-```
-> ✔️ **Registro atualizado no banco — peso de 28.3 → 26.0 kg**
-
----
-
-## ✅ CRUD-6 — DELETE (DELETE) — Remoção de Pet
-
-**Requisição:**
-```http
-DELETE /api/pets/3
-```
-
-**Resposta:**
-```
-HTTP/1.1 204 No Content
-Date: Sat, 12 Sep 2026 23:07:09 GMT
-```
-> ✔️ **HTTP 204 — Registro removido com sucesso**
-
----
-
-## ✅ CRUD-7 — Confirmação de Exclusão (GET após DELETE)
-
-**Requisição:**
-```http
-GET /api/pets/3
-```
-
-**Resposta `404 Not Found`:**
-```
-Pet não encontrado com id 3
-```
-> ✔️ **Confirmado: o Pet id=3 foi de fato excluído do banco Oracle**
+> ✔️ Registros removidos do Oracle na nuvem e inexistentes para a API.
 
 ---
 
@@ -216,24 +153,17 @@ Pet não encontrado com id 3
 
 | Recurso | Valor |
 |---------|-------|
-| **Resource Group** | `rg-clyvo-devops-sprint3` |
-| **ACR** | `acrclyvovet18809.azurecr.io` |
-| **Key Vault** | `kv-clyvo-vet` |
-| **Container Group** | `cg-clyvo-vet` (East US) |
-| **IP Público** | `20.242.131.163` |
-| **FQDN** | `clyvo-vet-api-29514.eastus.azurecontainer.io` |
-| **Banco de Dados** | Oracle 23c Free — `FREEPDB1` |
-| **Aplicação** | Spring Boot 3.x — Hibernate JPA |
+| **Resource Group** | `rg-clyvo-devops-sprint3` (East US) |
+| **ACR** | `acrclyvovet18809.azurecr.io` - imagens `clyvo-api:v1` e `clyvo-db:v1` |
+| **Key Vault** | `kv-clyvo-vet` - `DB-USER`, `DB-PASSWORD`, `DB-URL`, `ACR-PASSWORD` |
+| **Container Group** | `cg-clyvo-vet` - `clyvo-db` (Oracle 23c Free, 1521 interna) + `clyvo-api` (Spring Boot, 8080 pública) |
+| **FQDN / IP** | `clyvo-vet-api-13814.eastus.azurecontainer.io` / `52.170.162.183` |
+
+## 🔐 Segurança
+- Credenciais somente no Azure Key Vault e em variáveis de ambiente do ACI; nada no código ou no repositório.
+- Container da API executa como usuário não-root (`appuser`).
+- Porta 1521 fechada para a internet; SELECTs feitos via `az container exec` dentro do container.
 
 ---
 
-## 🔐 Segurança implementada
-
-- Credenciais armazenadas no **Azure Key Vault** (`kv-clyvo-vet`)
-- Variáveis de ambiente injetadas no ACI em tempo de deploy
-- `application.properties` **sem nenhum fallback hardcoded** para dados sensíveis
-- Senha nunca exposta no código-fonte ou logs
-
----
-
-*Evidências coletadas em: 2026-09-12 | Equipe: Gabriel Maciel (RM562795), Vitória Rodrigues (RM565160), Augusto Bonomo (RM565155), Thomas Fontes (RM562254), Matheus Molina (RM563399)*
+*Equipe: Gabriel Maciel (RM562795), Vitória Rodrigues Martins (RM565160), Augusto Bonomo Júnior (RM565155), Thomas Fontes (RM562254), Matheus Pereira Molina (RM563399)*

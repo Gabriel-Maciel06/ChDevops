@@ -134,9 +134,13 @@ envsubst < azure-aci-multicontainer.template.yaml > azure-aci-deployment.yaml
 az container create \
   --resource-group "$RESOURCE_GROUP" \
   --file azure-aci-deployment.yaml \
+  --query "{nome:name, status:provisioningState, fqdn:ipAddress.fqdn, ip:ipAddress.ip}" \
   -o table
 
 rm -f azure-aci-deployment.yaml   # não deixar credenciais em disco
+echo "     Containers do grupo:"
+az container show --resource-group "$RESOURCE_GROUP" --name "$CONTAINER_GROUP_NAME" \
+  --query "containers[].{container:name, imagem:image, estado:instanceView.currentState.state}" -o table
 
 # ------------------------------------------------------------------------------
 # 6. Endereços públicos e verificação de saúde

@@ -21,6 +21,12 @@ public class PetDTO {
     @NotNull(message = "O peso é obrigatório")
     private Double peso;
 
+    /** Opcional: ID da raça cadastrada em T_RACA (habilita o insight preditivo por raça). */
+    private Long racaId;
+
+    /** Nome da raça (somente leitura, preenchido na resposta). */
+    private String racaNome;
+
     @NotBlank(message = "O CPF do tutor é obrigatório")
     private String tutorCpf;
 

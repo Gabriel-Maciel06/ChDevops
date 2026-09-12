@@ -1,142 +1,462 @@
 {
-	"info": {
-		"name": "Clyvo Vet - Challenge API",
-		"description": "Collection completa para testes do ecossistema Clyvo Vet (Java Advanced)",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Pets",
-			"item": [
-				{
-					"name": "Listar Pets (Paginação)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/pets?page=0&size=5",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "pets"],
-							"query": [
-								{ "key": "page", "value": "0" },
-								{ "key": "size", "value": "5" }
-							]
-						}
-					}
-				},
-				{
-					"name": "Buscar Pet por ID (HATEOAS)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "http://localhost:8080/api/pets/1"
-					}
-				}
-			]
-		},
-		{
-			"name": "Tutores",
-			"item": [
-				{
-					"name": "Trocar Pet (Listar por CPF)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "http://localhost:8080/api/tutores/12345678900/pets"
-					}
-				}
-			]
-		},
-		{
-			"name": "Clínica & Especialistas",
-			"item": [
-				{
-					"name": "Cadastrar Clínica",
-					"request": {
-						"method": "POST",
-						"header": [
-							{ "key": "Content-Type", "value": "application/json" }
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"nomeCnpj\": \"VetLife - 12.345.678/0001-90\",\n    \"telefone\": \"(11) 98888-7777\"\n}"
-						},
-						"url": "http://localhost:8080/api/clinicas"
-					}
-				},
-				{
-					"name": "Cadastrar Especialista",
-					"request": {
-						"method": "POST",
-						"header": [
-							{ "key": "Content-Type", "value": "application/json" }
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Dr. Anderson\",\n    \"especialidade\": \"NEURO\"\n}"
-						},
-						"url": "http://localhost:8080/api/especialistas"
-					}
-				}
-			]
-		},
-		{
-			"name": "Eventos e Histórico",
-			"item": [
-				{
-					"name": "Registrar Evento (Consulta)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{ "key": "Content-Type", "value": "application/json" }
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tipo\": \"CONSULTA ESPECIALISTA\",\n    \"pet\": { \"id\": 1 },\n    \"tutor\": { \"cpf\": \"12345678900\" },\n    \"medico\": { \"id\": 1 }\n}"
-						},
-						"url": "http://localhost:8080/api/eventos"
-					}
-				}
-			]
-		},
-		{
-			"name": "Match Preditivo & Geolocalização",
-			"item": [
-				{
-					"name": "Sugerir Clínicas Próximas (Match Preditivo)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/match-preditivo/clinicas?cpfTutor=12345678900&idTipoServico=1",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "8080",
-							"path": ["api", "match-preditivo", "clinicas"],
-							"query": [
-								{ "key": "cpfTutor", "value": "12345678900" },
-								{ "key": "idTipoServico", "value": "1" }
-							]
-						}
-					}
-				},
-				{
-					"name": "Registrar Localização do Tutor",
-					"request": {
-						"method": "POST",
-						"header": [
-							{ "key": "Content-Type", "value": "application/json" }
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tutor\": { \"cpf\": \"12345678900\" },\n    \"latitudeAtual\": -23.563000,\n    \"longitudeAtual\": -46.654000,\n    \"dataHoraCaptura\": \"2026-05-18T10:00:00\",\n    \"cidadeDetectada\": \"São Paulo\"\n}"
-						},
-						"url": "http://localhost:8080/api/contexto-localizacao"
-					}
-				}
-			]
-		}
-	]
+  "info": {
+    "name": "Clyvo Vet - Challenge API",
+    "description": "Collection completa para testes do ecossistema Clyvo Vet (Java Advanced)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CRUD CORE - Sprint 3 (T_TUTOR e T_PET)",
+      "item": [
+        {
+          "name": "Tutores (T_TUTOR)",
+          "item": [
+            {
+              "name": "CREATE - POST tutor 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cpf\": \"11122233344\",\n  \"nome\": \"Gabriel Maciel\",\n  \"telefone\": \"(11) 98765-4321\",\n  \"email\": \"gabriel.maciel@clyvovet.com\",\n  \"quantidadePets\": 1\n}"
+                }
+              }
+            },
+            {
+              "name": "CREATE - POST tutor 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cpf\": \"55566677788\",\n  \"nome\": \"Vitória Rodrigues\",\n  \"telefone\": \"(11) 91234-5678\",\n  \"email\": \"vitoria.rodrigues@clyvovet.com\",\n  \"quantidadePets\": 1\n}"
+                }
+              }
+            },
+            {
+              "name": "READ - GET todos",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "READ - GET por CPF",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores/11122233344",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores",
+                    "11122233344"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "READ - GET pets do tutor",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores/11122233344/pets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores",
+                    "11122233344",
+                    "pets"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "UPDATE - PUT tutor 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores/55566677788",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores",
+                    "55566677788"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cpf\": \"55566677788\",\n  \"nome\": \"Vitória Rodrigues Martins\",\n  \"telefone\": \"(11) 99999-0002\",\n  \"email\": \"vitoria.rodrigues@clyvovet.com\",\n  \"quantidadePets\": 2\n}"
+                }
+              }
+            },
+            {
+              "name": "DELETE - DELETE tutor 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/tutores/55566677788",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tutores",
+                    "55566677788"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pets (T_PET)",
+          "item": [
+            {
+              "name": "CREATE - POST pet Thor",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/pets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pets"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Thor\",\n  \"dataNascimento\": \"2020-04-10\",\n  \"peso\": 34.5,\n  \"racaId\": 1,\n  \"tutorCpf\": \"11122233344\",\n  \"statusLongevidade\": \"Fase adulta madura. Monitoramento preventivo semestral.\"\n}"
+                }
+              }
+            },
+            {
+              "name": "CREATE - POST pet Luna",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/pets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pets"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Luna\",\n  \"dataNascimento\": \"2017-08-20\",\n  \"peso\": 12.0,\n  \"racaId\": 2,\n  \"tutorCpf\": \"55566677788\",\n  \"statusLongevidade\": \"Fase sênior. Check-up cardiorrespiratório trimestral.\"\n}"
+                }
+              }
+            },
+            {
+              "name": "READ - GET todos",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/pets",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pets"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "READ - GET por id (HATEOAS)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/pets/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pets",
+                    "1"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "UPDATE - PUT pet 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/pets/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pets",
+                    "1"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nome\": \"Thor\",\n  \"dataNascimento\": \"2020-04-10\",\n  \"peso\": 33.8,\n  \"racaId\": 1,\n  \"tutorCpf\": \"11122233344\",\n  \"statusLongevidade\": \"Peso otimizado. Longevidade estimada em 13 anos.\"\n}"
+                }
+              }
+            },
+            {
+              "name": "DELETE - DELETE pet 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/pets/2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pets",
+                    "2"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Clínica & Especialistas",
+      "item": [
+        {
+          "name": "Cadastrar Clínica",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nomeCnpj\": \"VetLife - 12.345.678/0001-90\",\n    \"telefone\": \"(11) 98888-7777\"\n}"
+            },
+            "url": "{{baseUrl}}/api/clinicas"
+          }
+        },
+        {
+          "name": "Cadastrar Especialista",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nome\": \"Dr. Anderson\",\n    \"especialidade\": \"NEURO\"\n}"
+            },
+            "url": "{{baseUrl}}/api/especialistas"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eventos e Histórico",
+      "item": [
+        {
+          "name": "Registrar Evento (Consulta)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"tipo\": \"CONSULTA ESPECIALISTA\",\n    \"pet\": { \"id\": 1 },\n    \"tutor\": { \"cpf\": \"12345678900\" },\n    \"medico\": { \"id\": 1 }\n}"
+            },
+            "url": "{{baseUrl}}/api/eventos"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Match Preditivo & Geolocalização",
+      "item": [
+        {
+          "name": "Sugerir Clínicas Próximas (Match Preditivo)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/match-preditivo/clinicas?cpfTutor=12345678900&idTipoServico=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "match-preditivo",
+                "clinicas"
+              ],
+              "query": [
+                {
+                  "key": "cpfTutor",
+                  "value": "12345678900"
+                },
+                {
+                  "key": "idTipoServico",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar Localização do Tutor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"tutor\": { \"cpf\": \"12345678900\" },\n    \"latitudeAtual\": -23.563000,\n    \"longitudeAtual\": -46.654000,\n    \"dataHoraCaptura\": \"2026-05-18T10:00:00\",\n    \"cidadeDetectada\": \"São Paulo\"\n}"
+            },
+            "url": "{{baseUrl}}/api/contexto-localizacao"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
 }

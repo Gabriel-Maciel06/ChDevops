@@ -13,6 +13,7 @@ properties:
         port: 8080
         # NOTA: porta 1521 (Oracle) NÃO exposta publicamente.
         # A comunicação entre clyvo-api e clyvo-db ocorre via localhost compartilhado no Container Group.
+        # Consultas SQL de evidência são feitas com: ./consultar_banco_nuvem.sh "SELECT ..." (az container exec).
   imageRegistryCredentials:
     - server: ${ACR_LOGIN_SERVER}
       username: ${ACR_USERNAME}
@@ -20,7 +21,7 @@ properties:
   containers:
     - name: clyvo-db
       properties:
-        image: ${ACR_LOGIN_SERVER}/oracle-free:23-slim-faststart
+        image: ${ACR_LOGIN_SERVER}/${IMAGE_DB_NAME}
         resources:
           requests:
             cpu: 1.5
@@ -47,7 +48,7 @@ properties:
             port: 8080
         environmentVariables:
           - name: DB_URL
-            value: 'jdbc:oracle:thin:@localhost:1521/FREEPDB1'
+            value: '${DB_URL}'
           - name: DB_USER
             value: '${DB_USER}'
           - name: DB_PASSWORD

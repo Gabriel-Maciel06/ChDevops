@@ -1,18 +1,27 @@
-
+# ==============================================================================
+# Clyvo Vet - Ambiente local 100% containerizado (App + Oracle 23c Free)
+# ------------------------------------------------------------------------------
+# SEGURANÇA: nenhuma credencial fica neste arquivo. Copie .env.example para .env
+# (arquivo ignorado pelo git) e defina DB_USER / DB_PASSWORD antes de subir:
+#   cp .env.example .env && docker compose up --build -d
+# As mesmas duas imagens (clyvo-api e clyvo-db) são enviadas ao ACR e executadas
+# no ACI pelo script deploy_azure_acr_aci.sh.
+# ==============================================================================
 services:
   db:
-    image: gvenzl/oracle-free:23-slim-faststart
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    image: clyvo-db:v1
     container_name: clyvo_db
     environment:
-      - ORACLE_PASSWORD=060205
-      - APP_USER=RM562795
-      - APP_USER_PASSWORD=060205
+      - ORACLE_PASSWORD=${DB_PASSWORD:?Defina DB_PASSWORD no arquivo .env}
+      - APP_USER=${DB_USER:?Defina DB_USER no arquivo .env}
+      - APP_USER_PASSWORD=${DB_PASSWORD}
     ports:
       - "1521:1521"
     volumes:
       - oracle_data:/opt/oracle/oradata
-      - ./db_setup.sql:/container-entrypoint-initdb.d/01_db_setup.sql
-      - ./db_dml.sql:/container-entrypoint-initdb.d/02_db_dml.sql
     networks:
       - clyvo_network
     restart: unless-stopped
@@ -20,10 +29,11 @@ services:
       test: ["CMD", "healthcheck.sh"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 30
 
   api:
     build: .
+    image: clyvo-api:v1
     container_name: clyvo_api
     depends_on:
       db:
@@ -32,15 +42,15 @@ services:
       - "8080:8080"
     environment:
       - DB_URL=jdbc:oracle:thin:@db:1521/FREEPDB1
-      - DB_USER=RM562795
-      - DB_PASSWORD=060205
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     networks:
       - clyvo_network
     restart: unless-stopped
 
 volumes:
   oracle_data:
-    name: oracle_data_volume # Exigência DevOps 2.3: Volume nomeado
+    name: oracle_data_volume
 
 networks:
   clyvo_network:

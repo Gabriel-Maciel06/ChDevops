@@ -8,6 +8,8 @@
 
 ---
 
+> ⚠️ **Nota de versão:** estas evidências foram coletadas no deploy inicial (v1) de 12/09/2026. Nessa versão o campo `statusLongevidade` ainda não era persistido (aparece `null`) e o teste cobria apenas parte do CRUD de tutores. A versão atual do código persiste o parecer, expõe `PUT`/`DELETE` de tutores e o script `testes_crud_core.sh` cobre as duas tabelas. As evidências definitivas, com SELECT no banco após cada operação (`consultar_banco_nuvem.sh`), estão no vídeo da entrega.
+
 ## ✅ CRUD-1 — CREATE (POST) — Tutor
 
 **Requisição:**

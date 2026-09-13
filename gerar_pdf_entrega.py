@@ -43,7 +43,7 @@ def gerar_pdf():
     pdf.set_font('Arial', '', 11)
     pdf.cell(0, 7, 'Link do Video Demonstrativo no YouTube:', 0, 1)
     pdf.set_font('Arial', 'U', 11)
-    pdf.cell(0, 7, 'https://youtu.be/SEU_VIDEO_AQUI', 0, 1)
+    pdf.cell(0, 7, 'https://youtu.be/mrJe4YBKyeE', 0, 1)
     
     # Salvar
     saida = 'Entrega_DevOps_Sprint3_FIAP.pdf'
